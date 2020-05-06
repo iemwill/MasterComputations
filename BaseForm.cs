@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using MasterComputations.Data;
+using Org.OpenAPITools.Client;
 
 namespace MasterComputations
 {
-    public partial class Form1 : Form
+    public partial class BaseForm : Form
     {
-        public Form1()
+        private string name;
+        private string passW;
+        public BaseForm()
         {
             InitializeComponent();
         }
@@ -24,10 +28,30 @@ namespace MasterComputations
                 {
                     OptionData data = new OptionData();
                     data.rawData = Parse.csv(openFileDialog1.FileName, ';');
+
+
                 }
                 catch
                 {
                 }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var form = new connectDeribitForm();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    name = form.name;
+                    passW = form.passW;
+                    form.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
