@@ -15,6 +15,7 @@ namespace MasterComputations
         public BaseForm()
         {
             InitializeComponent();
+            inactive = API.Deribit.getChartData();//TODO
         }
         private void button1_Click(object sender, EventArgs e)
         {
