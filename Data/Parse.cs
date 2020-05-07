@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 namespace MasterComputations.Data
@@ -37,6 +38,73 @@ namespace MasterComputations.Data
                 }
             }
             return dt;
+        }
+        public static List<Currency> currencies(dynamic input)
+        {
+            List<Currency> retval = new List<Currency>();
+            foreach (var x in input)
+            {
+                Currency curr = new Currency();
+                curr.coin_type = x.coin_type;
+                curr.currency = x.currency;
+                curr.currency_long = x.currency_long;
+                curr.fee_precision = x.fee_precision;
+                curr.min_confirmations = x.min_confirmations;
+                curr.min_withdrawal_fee = x.min_withdrawal_fee;
+                curr.withdrawal_fee = x.withdrawal_fee;
+                retval.Add(curr);
+            }
+            return retval;
+        }
+        public static List<Instrument> instruments(dynamic input, bool getFutures)
+        {
+            List<Instrument> options = new List<Instrument>();
+            List<Instrument> futures = new List<Instrument>();
+            foreach (var x in input)
+            {
+                Instrument instr = new Instrument();
+                if (x.kind == "option")
+                {
+                    instr.tick_size = x.tick_size;
+                    instr.taker_commission = x.taker_commission;
+                    instr.strike = x.strike;
+                    instr.quote_currency = x.quote_currency;
+                    instr.option_type = x.option_type;
+                    instr.min_trade_amount = x.min_trade_amount;
+                    instr.maker_commission = x.maker_commission;
+                    instr.kind = x.kind;
+                    instr.is_active = x.is_active;
+                    instr.instrument_name = x.instrument_name;
+                    instr.expiration_timestamp = x.expiration_timestamp;
+                    instr.creation_timestamp = x.creation_timestamp;
+                    instr.contract_size = x.contract_size;
+                    instr.settlement_period = x.settlement_period;
+                    instr.base_currency = x.base_currency;
+                    options.Add(instr);
+                }
+                else if (x.kind == "future")
+                {
+                    instr.tick_size = x.tick_size;
+                    instr.taker_commission = x.taker_commission;
+                    instr.quote_currency = x.quote_currency;
+                    instr.min_trade_amount = x.min_trade_amount;
+                    instr.maker_commission = x.maker_commission;
+                    instr.kind = x.kind;
+                    instr.is_active = x.is_active;
+                    instr.instrument_name = x.instrument_name;
+                    instr.expiration_timestamp = x.expiration_timestamp;
+                    instr.creation_timestamp = x.creation_timestamp;
+                    instr.contract_size = x.contract_size;
+                    instr.base_currency = x.base_currency;
+                    instr.max_liquidation_commission = x.max_liquidation_commission;
+                    instr.max_leverage = x.max_leverage;
+                    futures.Add(instr);
+                }
+            }
+            if (!getFutures)
+                return options;
+            else
+                return futures;
         }
     }
 }

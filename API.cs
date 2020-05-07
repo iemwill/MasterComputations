@@ -4,7 +4,6 @@ using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace MasterComputations
 {
@@ -20,21 +19,20 @@ namespace MasterComputations
                 Object result = apiInstance.PublicGetCurrenciesGet();
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
-                List<Currency> retval = new List<Currency>();
-                foreach (var x in res)
-                {
-                    Currency curr = new Currency();
-                    curr.coin_type = x.coin_type;
-                    curr.currency = x.currency;
-                    curr.currency_long = x.currency_long;
-                    curr.fee_precision = x.fee_precision;
-                    curr.min_confirmations = x.min_confirmations;
-                    curr.min_withdrawal_fee = x.min_withdrawal_fee;
-                    curr.withdrawal_fee = x.withdrawal_fee;
-                    retval.Add(curr);
-                }
-                return retval;
+
+                return Parse.currencies(res);
+            }
+            public static List<Instrument> getInstruments(string symbol="BTC", bool getFutures=false)
+            {
+                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new PublicApi(Configuration.Default);
+                // Change the user name for a subaccount
+                Object result = apiInstance.PublicGetInstrumentsGet(symbol);
+                dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
+                var res = stuff.result;
+                return Parse.instruments(res, getFutures);
             }
         }
     }
 }
+
