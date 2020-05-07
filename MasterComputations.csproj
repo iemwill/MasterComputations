@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\Instrument.cs" />
+    <Compile Include="Data\Load.cs" />
     <Compile Include="Data\Parse.cs" />
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
@@ -81,6 +82,7 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Save.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="connectDeribitForm.resx">

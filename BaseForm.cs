@@ -22,6 +22,7 @@ namespace MasterComputations
             foreach (var x in optionsBTC)
                 if (x.is_active == false)
                     inactive.Add(x);
+            Save.currencies(currencies);
             Debug.WriteLine(true);
         }
         private void button1_Click(object sender, EventArgs e)
