@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
 using MasterComputations.Data;
 
@@ -16,21 +15,21 @@ namespace MasterComputations
         public BaseForm()
         {
             InitializeComponent();
-            currencies = API.Deribit.getCurrencies();
-            optionsBTC = API.Deribit.getInstruments();
-            inactive = new List<Instrument>();
-            foreach (var x in optionsBTC)
-                if (x.is_active == false)
-                    inactive.Add(x);
-            Save.currencies(currencies);
-            Debug.WriteLine(true);
         }
         private void button1_Click(object sender, EventArgs e)
         {
             {
                 try
                 {
-
+                    currencies = API.Deribit.getCurrencies();
+                    optionsBTC = API.Deribit.getInstruments();
+                    inactive = new List<Instrument>();
+                    foreach (var x in optionsBTC)
+                        if (x.is_active == false)
+                            inactive.Add(x);
+                    Save.currencies(currencies);
+                    Save.optionsBTC(optionsBTC);
+                    MessageBox.Show("Data was load successfully.");
                 }
                 catch
                 {
@@ -41,7 +40,8 @@ namespace MasterComputations
         {
             try
             {
-
+                currencies = Data.Load.currencies();
+                optionsBTC = Data.Load.optionsBTC();
             }
             catch (Exception)
             {

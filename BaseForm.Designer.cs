@@ -39,7 +39,7 @@
             this.parseCSV.Name = "parseCSV";
             this.parseCSV.Size = new System.Drawing.Size(129, 33);
             this.parseCSV.TabIndex = 0;
-            this.parseCSV.Text = "parse csv";
+            this.parseCSV.Text = "GET ONLINE DATA";
             this.parseCSV.UseVisualStyleBackColor = true;
             this.parseCSV.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -58,7 +58,7 @@
             this.publicAPIderibit.Name = "publicAPIderibit";
             this.publicAPIderibit.Size = new System.Drawing.Size(129, 33);
             this.publicAPIderibit.TabIndex = 2;
-            this.publicAPIderibit.Text = "use deribit public Data";
+            this.publicAPIderibit.Text = "LOAD DATA";
             this.publicAPIderibit.UseVisualStyleBackColor = true;
             this.publicAPIderibit.Click += new System.EventHandler(this.button3_Click);
             // 
