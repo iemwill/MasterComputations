@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API.cs" />
+    <Compile Include="Data\API.cs" />
     <Compile Include="connectDeribitForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,7 +83,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Data\OptionData.cs" />
     <EmbeddedResource Include="connectDeribitForm.resx">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </EmbeddedResource>
