@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.parseCSV = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.publicAPIderibit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // parseCSV
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 33);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "parse OptionData";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.parseCSV.Location = new System.Drawing.Point(12, 12);
+            this.parseCSV.Name = "parseCSV";
+            this.parseCSV.Size = new System.Drawing.Size(129, 33);
+            this.parseCSV.TabIndex = 0;
+            this.parseCSV.Text = "parse csv";
+            this.parseCSV.UseVisualStyleBackColor = true;
+            this.parseCSV.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -52,25 +52,25 @@
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // publicAPIderibit
             // 
-            this.button3.Location = new System.Drawing.Point(12, 51);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(103, 33);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "connect to deribit";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.publicAPIderibit.Location = new System.Drawing.Point(12, 51);
+            this.publicAPIderibit.Name = "publicAPIderibit";
+            this.publicAPIderibit.Size = new System.Drawing.Size(129, 33);
+            this.publicAPIderibit.TabIndex = 2;
+            this.publicAPIderibit.Text = "use deribit public Data";
+            this.publicAPIderibit.UseVisualStyleBackColor = true;
+            this.publicAPIderibit.Click += new System.EventHandler(this.button3_Click);
             // 
-            // Form1
+            // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 370);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.publicAPIderibit);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Controls.Add(this.parseCSV);
+            this.Name = "BaseForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
@@ -78,9 +78,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button parseCSV;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button publicAPIderibit;
     }
 }
 

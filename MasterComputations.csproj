@@ -65,12 +65,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
     <Compile Include="connectDeribitForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="connectDeribitForm.Designer.cs">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\GET.cs" />
     <Compile Include="Data\Parse.cs" />
     <Compile Include="BaseForm.cs">
