@@ -23,14 +23,7 @@ namespace MasterComputations
             {
                 try
                 {
-                    currencies = API.Deribit.getCurrencies();
-                    optionsBTC = API.Deribit.getInstruments();
-                    inactive = new List<Instrument>();
-                    foreach (var x in optionsBTC)
-                        if (x.is_active == false)
-                            inactive.Add(x);
-                    Save.currencies(currencies);
-                    Save.optionsBTC(optionsBTC);
+                    load();
                     MessageBox.Show("Data was load successfully. Now filling Table 1...");
                     fillGrid();
                 }
@@ -53,9 +46,17 @@ namespace MasterComputations
         }
         private void load()
         {
-            foreach(var x in currencies)
+            currencies = API.Deribit.getCurrencies();
+            optionsBTC = API.Deribit.getInstruments();
+            inactive = new List<Instrument>();
+            foreach (var x in optionsBTC)
+                if (x.is_active == false)
+                    inactive.Add(x);
+            Save.currencies(currencies);
+            Save.optionsBTC(optionsBTC);
+            foreach (var x in optionsBTC)
             {
-
+                //var tick = API.Deribit.getTicker(x.instrument_name);//TODO
             }
         }
         private void fillGrid()

@@ -38,6 +38,15 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.hisVol(res);
             }
+            public static List<Tuple<long, double>> getTicker(string name)
+            {
+                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new PublicApi(Configuration.Default);
+                Object result = apiInstance.PublicTickerGet(name);
+                dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
+                var res = stuff.result;
+                return Parse.ticker(res);
+            }
             //TODO
             public static List<Instrument> getChartData()
             {

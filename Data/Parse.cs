@@ -109,12 +109,57 @@ namespace MasterComputations.Data
         }
         public static List<Tuple<long, double>> hisVol(dynamic input)
         {
-            List<Tuple<long, double>> retval= new List<Tuple<long, double>>();
+            List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
             foreach (var x in input)
             {
                 retval.Add(new Tuple<long, double>(x[0].Value, x[1].Value));
             }
             return retval;
+        }
+        public static List<Tuple<long, double>> ticker(dynamic input)
+        {
+            List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
+            {
+                {
+                    {
+                        //"underlying_price": 9936.78,
+                        //  "underlying_index": "SYN.BTC-8MAY20",
+                        //  "timestamp": 1588897318040,
+                        //  "stats": {
+                        //    "volume": null,
+                        //    "price_change": null,
+                        //    "low": null,
+                        //    "high": null
+                        //  },
+                        //  "state": "open",
+                        //  "settlement_price": 0.18,
+                        //  "open_interest": 0.0,
+                        //  "min_price": 0.075,
+                        //  "max_price": 0.1465,
+                        //  "mark_price": 0.1075835,
+                        //  "mark_iv": 179.23,
+                        //  "last_price": null,
+                        //  "interest_rate": 0.0,
+                        //  "instrument_name": "BTC-8MAY20-11000-P",
+                        //  "index_price": 9936.57,
+                        //  "greeks": {
+                        //    "vega": 0.19434,
+                        //    "theta": -17.4153,
+                        //    "rho": -0.09339,
+                        //    "gamma": 0.00013,
+                        //    "delta": -0.97095
+                        //  },
+                        //  "estimated_delivery_price": 9936.57,
+                        //  "bid_iv": 0.0,
+                        //  "best_bid_price": 0.013,
+                        //  "best_bid_amount": 0.5,
+                        //  "best_ask_price": 0.6665,
+                        //  "best_ask_amount": 0.1,
+                        //  "ask_iv": 500.0
+                    }
+                }
+                return new List<Tuple<long, double>>();
+            }
         }
     }
 }
