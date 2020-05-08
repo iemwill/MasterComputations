@@ -18,7 +18,12 @@ namespace MasterComputations
         public BaseForm()
         {
             InitializeComponent();
-            //inactive = API.Deribit.getChartData();//TODO
+            inactive = API.Deribit.getChartData(
+                "BTC-15MAY20-10000-C",
+                Convert.ToInt32(dateTimeToUnix(new DateTime(2020,05,01, 0, 0, 0).ToUniversalTime())),
+                Convert.ToInt32(dateTimeToUnix(DateTime.UtcNow)),
+                ""
+            );//TODO
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -158,20 +163,27 @@ namespace MasterComputations
             };
             foreach (var x in optionsBTC)
                 if (x.option_type == "call")
-                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(UnixTimeStampToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
                 else
-                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(UnixTimeStampToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
 
             model.Series.Add(lineserieCall);
             model.Series.Add(lineseriePut);
             this.plotView1.Model = model;
-        }
-        public DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        } // TODO insert line for every point until its expiration date.
+        public DateTime unixToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
+        }
+        public double dateTimeToUnix(DateTime dt)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            var unix = (dt.ToUniversalTime() - dtDateTime);
+            return unix.TotalSeconds;
         }
     }
 }

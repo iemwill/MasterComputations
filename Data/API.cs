@@ -4,6 +4,7 @@ using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace MasterComputations
 {
@@ -47,16 +48,15 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.ticker(res);
             }
-            //TODO
-            public static List<Instrument> getChartData()
+            public static List<Instrument> getChartData(string name, int start, int end, string intervall)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                var apiInstance = new MarketDataApi(Configuration.Default);
                 // Change the user name for a subaccount
-                Object result = apiInstance.PublicGetTradingviewChartDataGet("BTC-25DEC20-5000-C", 1526641200, 1535540400, "1D");
+                Object result = apiInstance.PublicGetTradingviewChartDataGet(name, start, end, intervall);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
-                return res;
+                return Parse.chartData(res);
             }
         }
     }

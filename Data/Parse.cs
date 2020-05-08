@@ -161,5 +161,15 @@ namespace MasterComputations.Data
                 return new List<Tuple<long, double>>();
             }
         }
+        public static List<Tuple<long, double>> chartData(dynamic input)
+        {
+            List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
+            foreach (var x in input)
+            {
+                retval.Add(new Tuple<long, double>(new long(), new double()));
+            }
+            return retval;
+        }
+
     }
 }
