@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 
@@ -105,6 +106,15 @@ namespace MasterComputations.Data
                 return options;
             else
                 return futures;
+        }
+        public static List<Tuple<long, double>> hisVol(dynamic input)
+        {
+            List<Tuple<long, double>> retval= new List<Tuple<long, double>>();
+            foreach (var x in input)
+            {
+                retval.Add(new Tuple<long, double>(x[0].Value, x[1].Value));
+            }
+            return retval;
         }
     }
 }
