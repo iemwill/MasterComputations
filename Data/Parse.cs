@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.ServiceModel.Channels;
+using System.Windows.Forms;
 
 namespace MasterComputations.Data
 {
@@ -111,11 +113,60 @@ namespace MasterComputations.Data
         {
             List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
             foreach (var x in input)
-            {
                 retval.Add(new Tuple<long, double>(x[0].Value, x[1].Value));
-            }
             return retval;
         }
+        public static List<Book> book(dynamic x)
+        {
+            try
+            {
+                List<Book> retval = new List<Book>();
+                Book bookToAdd = new Book();
+                bookToAdd.change_id = x.change_id;
+                bookToAdd.estimated_delivery_price = x.estimated_delivery_price;
+                bookToAdd.greeks.vega = x.greeks.vega;
+                bookToAdd.greeks.theta = x.greeks.theta;
+                bookToAdd.greeks.rho = x.greeks.rho;
+                bookToAdd.greeks.gamma = x.greeks.gamma;
+                bookToAdd.greeks.delta = x.greeks.delta;
+                bookToAdd.index_price = x.index_price;
+                bookToAdd.instrument_name = x.instrument_name;
+                bookToAdd.interest_rate = x.interest_rate;
+                if (x.last_price != null)
+                    bookToAdd.last_price = x.last_price;
+                bookToAdd.mark_iv = x.mark_iv;
+                bookToAdd.mark_price = x.mark_price;
+                bookToAdd.max_price = x.max_price;
+                bookToAdd.min_price = x.min_price;
+                bookToAdd.open_interest = x.open_interest;
+                if (x.settlement_price != null)
+                    bookToAdd.settlement_price = x.settlement_price;
+                bookToAdd.state = x.state;
+                if (x.stats.high != null)
+                    bookToAdd.stats.high = x.stats.high;
+                if (x.stats.low != null)
+                    bookToAdd.stats.low = x.stats.low;
+                if (x.stats.price_change != null)
+                    bookToAdd.stats.price_change = x.stats.price_change;
+                if (x.stats.volume != null)
+                    bookToAdd.stats.volume = x.stats.volume;
+                bookToAdd.timestamp = x.timestamp;
+                bookToAdd.underlying_index = x.underlying_index;
+                bookToAdd.underlying_price = x.underlying_price;
+                bookToAdd.best_ask_amount = x.best_ask_amount;
+                bookToAdd.best_ask_price = x.best_ask_price;
+                bookToAdd.best_bid_amount = x.best_bid_amount;
+                bookToAdd.best_bid_price = x.best_bid_price;
+                retval.Add(bookToAdd);
+                return retval;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return new List<Book>();
+            }
+        }
+        //TODO
         public static List<Tuple<long, double>> ticker(dynamic input)
         {
             List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
@@ -161,6 +212,7 @@ namespace MasterComputations.Data
                 return new List<Tuple<long, double>>();
             }
         }
+        //TOfix
         public static List<Tuple<long, double>> chartData(dynamic input)
         {
             List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
@@ -170,6 +222,5 @@ namespace MasterComputations.Data
             }
             return retval;
         }
-
     }
 }

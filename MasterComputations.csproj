@@ -79,6 +79,7 @@
     <Compile Include="connectDeribitForm.Designer.cs">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Book.cs" />
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\Instrument.cs" />
     <Compile Include="Data\Load.cs" />

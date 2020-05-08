@@ -15,15 +15,16 @@ namespace MasterComputations
         public List<Instrument> optionsBTC;
         public List<Instrument> inactive;
         public List<Tuple<long, double>> historicalVolatilityBTC;
+        public Dictionary<string, List<Book>> orderBook;
         public BaseForm()
         {
             InitializeComponent();
-            inactive = API.Deribit.getChartData(
-                "BTC-15MAY20-10000-C",
-                Convert.ToInt32(dateTimeToUnix(new DateTime(2020,05,01, 0, 0, 0).ToUniversalTime())),
-                Convert.ToInt32(dateTimeToUnix(DateTime.UtcNow)),
-                ""
-            );//TODO
+            //inactive = API.Deribit.getChartData(
+            //    "BTC-15MAY20-10000-C",
+            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020,05,01, 0, 0, 0).ToUniversalTime())),
+            //    Convert.ToInt32(dateTimeToUnix(DateTime.UtcNow)),
+            //    ""
+            //);//TODO
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,6 +49,10 @@ namespace MasterComputations
             {
                 currencies = Data.Load.currencies();
                 optionsBTC = Data.Load.optionsBTC();
+                orderBook = Data.Load.book();
+                MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
+                fillGrid();
+                paint();
             }
             catch (Exception)
             {
@@ -56,14 +61,25 @@ namespace MasterComputations
         }
         private void load()
         {
+            //Get supported currencies and options for BTC
             currencies = API.Deribit.getCurrencies();
             optionsBTC = API.Deribit.getInstruments();
+            //fill current Orderbook.
+            orderBook = new Dictionary<string, List<Book>>();
+            foreach (var x in optionsBTC)
+                orderBook.Add(x.instrument_name, API.Deribit.getBook(x.instrument_name));
+
             inactive = new List<Instrument>();
             foreach (var x in optionsBTC)
                 if (x.is_active == false)
                     inactive.Add(x);
+
+
             Save.currencies(currencies);
             Save.optionsBTC(optionsBTC);
+            Save.book(orderBook);
+
+
             historicalVolatilityBTC = API.Deribit.getHistVol();
             foreach (var x in optionsBTC)
             {
@@ -102,10 +118,10 @@ namespace MasterComputations
                     one.Value = x.instrument_name;
                     tempRow.Cells.Add(one);
                     DataGridViewCell two = new DataGridViewTextBoxCell();
-                    two.Value = x.creation_timestamp;
+                    two.Value = unixToDateTime(x.creation_timestamp / 1000).ToShortDateString();
                     tempRow.Cells.Add(two);
                     DataGridViewCell three = new DataGridViewTextBoxCell();
-                    three.Value = x.expiration_timestamp;
+                    three.Value = unixToDateTime(x.expiration_timestamp / 1000).ToShortDateString();
                     tempRow.Cells.Add(three);
                     DataGridViewCell four = new DataGridViewTextBoxCell();
                     four.Value = x.base_currency;

@@ -4,7 +4,6 @@ using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace MasterComputations
 {
@@ -48,6 +47,16 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.ticker(res);
             }
+            public static List<Book> getBook(string name)
+            {
+                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new PublicApi(Configuration.Default);
+                Object result = apiInstance.PublicGetOrderBookGet(name);
+                dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
+                var res = stuff.result;
+                return Parse.book(res);
+            }
+            //TOfix
             public static List<Instrument> getChartData(string name, int start, int end, string intervall)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";

@@ -27,5 +27,15 @@ namespace MasterComputations.Data
 
             return options;
         }
+        public static Dictionary<string, List<Book>> book()
+        {
+
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\orderBook.will";
+            Dictionary<string, List<Book>> orders = new Dictionary<string, List<Book>>();
+            using (var fs = File.OpenRead(path))
+                orders = Serializer.Deserialize<Dictionary<string, List<Book>>>(fs);
+
+            return orders;
+        }
     }
 }

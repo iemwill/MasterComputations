@@ -41,5 +41,22 @@ namespace MasterComputations.Data
                 throw;
             }
         }
+        public static bool book(Dictionary<string,List<Book>> input)
+        {
+            try
+            {
+                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
+                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                Directory.CreateDirectory(path);
+                var path2 = path + "orderBook.will";
+                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    Serializer.Serialize(fs, input);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
