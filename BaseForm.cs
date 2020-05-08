@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using MasterComputations.Data;
 using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 
 
@@ -18,20 +19,21 @@ namespace MasterComputations
         {
             InitializeComponent();
             //inactive = API.Deribit.getChartData();//TODO
-            historicalVolatilityBTC = API.Deribit.getHistVol();
-            paint();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             {
                 try
                 {
                     load();
-                    MessageBox.Show("Data was load successfully. Now filling Table 1...");
+                    MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
                     fillGrid();
+                    paint();
                 }
-                catch
+                catch (Exception err)
                 {
+                    MessageBox.Show(err.Message);
                 }
             }
         }
@@ -57,6 +59,7 @@ namespace MasterComputations
                     inactive.Add(x);
             Save.currencies(currencies);
             Save.optionsBTC(optionsBTC);
+            historicalVolatilityBTC = API.Deribit.getHistVol();
             foreach (var x in optionsBTC)
             {
                 //var tick = API.Deribit.getTicker(x.instrument_name);//TODO
@@ -115,30 +118,60 @@ namespace MasterComputations
                     tempRow.Tag = x.is_active;
                     dataGridView1.Rows.Add(tempRow);
                 }
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 throw;
             }
         }
         private void paint()
         {
-            PlotModel model = new PlotModel();
-            List<DataPoint> Points = new List<DataPoint>();
-
-            LineSeries lineserie = new LineSeries
+            PlotModel model = new PlotModel { LegendSymbolLength = 24 };
+            model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price" });
+            model.Axes.Add(new DateTimeAxis()
             {
-                ItemsSource = Points,
+                Position = AxisPosition.Bottom,
+                Title = "Date",
+                IntervalType = DateTimeIntervalType.Days,
+                Minimum = DateTimeAxis.ToDouble(new DateTime(2018, 6, 1, 0, 0, 1)),
+                Maximum = DateTimeAxis.ToDouble(new DateTime(2020, 6, 1, 0, 0, 0)),
+            });
+            LineSeries lineserieCall = new LineSeries
+            {
                 DataFieldX = "x",
                 DataFieldY = "Y",
                 StrokeThickness = 2,
-                MarkerSize = 0,
-                LineStyle = LineStyle.Solid,
-                Color = OxyColors.White,
-                MarkerType = MarkerType.None,
+                MarkerSize = 5,
+                LineStyle = LineStyle.None,
+                Color = OxyColors.Red,
+                MarkerType = MarkerType.Triangle,
             };
+            LineSeries lineseriePut = new LineSeries
+            {
+                DataFieldX = "x",
+                DataFieldY = "Y",
+                StrokeThickness = 2,
+                MarkerSize = 2,
+                LineStyle = LineStyle.None,
+                Color = OxyColors.Black,
+                MarkerType = MarkerType.Circle,
+            };
+            foreach (var x in optionsBTC)
+                if (x.option_type == "call")
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(UnixTimeStampToDateTime(x.creation_timestamp / 1000)), x.strike));
+                else
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(UnixTimeStampToDateTime(x.creation_timestamp / 1000)), x.strike));
 
-            model.Series.Add(lineserie);
+            model.Series.Add(lineserieCall);
+            model.Series.Add(lineseriePut);
             this.plotView1.Model = model;
+        }
+        public DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }
