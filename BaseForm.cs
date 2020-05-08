@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MasterComputations.Data;
+using OxyPlot;
+using OxyPlot.Series;
 
 
 namespace MasterComputations
@@ -17,6 +19,7 @@ namespace MasterComputations
             InitializeComponent();
             //inactive = API.Deribit.getChartData();//TODO
             historicalVolatilityBTC = API.Deribit.getHistVol();
+            paint();
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -116,6 +119,26 @@ namespace MasterComputations
             {
                 throw;
             }
+        }
+        private void paint()
+        {
+            PlotModel model = new PlotModel();
+            List<DataPoint> Points = new List<DataPoint>();
+
+            LineSeries lineserie = new LineSeries
+            {
+                ItemsSource = Points,
+                DataFieldX = "x",
+                DataFieldY = "Y",
+                StrokeThickness = 2,
+                MarkerSize = 0,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColors.White,
+                MarkerType = MarkerType.None,
+            };
+
+            model.Series.Add(lineserie);
+            this.plotView1.Model = model;
         }
     }
 }
