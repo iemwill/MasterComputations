@@ -13,6 +13,8 @@ namespace MasterComputations
     {
         public List<Currency> currencies;
         public List<Instrument> optionsBTC;
+        public long minDateTime;
+        public long maxDateTime;
         public List<Instrument> inactive;
         public List<Tuple<long, double>> historicalVolatilityBTC;
         public Dictionary<string, List<Book>> orderBook;
@@ -26,16 +28,15 @@ namespace MasterComputations
             //    ""
             //);//TODO
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             {
                 try
                 {
-                    load();
+                    loadAPI();
                     MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
                     fillGrid();
-                    paint();
+                    paintDotsWithDuration();
                 }
                 catch (Exception err)
                 {
@@ -51,34 +52,33 @@ namespace MasterComputations
                 optionsBTC = Data.Load.optionsBTC();
                 orderBook = Data.Load.book();
                 MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
+                var minmax = Instrument.getMinMax(optionsBTC);
+                minDateTime = minmax.Item1;
+                maxDateTime = minmax.Item1;
                 fillGrid();
-                paint();
+                paintDots();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        private void load()
+        private void loadAPI()
         {
             //Get supported currencies and options for BTC
             currencies = API.Deribit.getCurrencies();
-            optionsBTC = API.Deribit.getInstruments();
+            optionsBTC = API.Deribit.getInstruments();            
             //fill current Orderbook.
             orderBook = new Dictionary<string, List<Book>>();
             foreach (var x in optionsBTC)
                 orderBook.Add(x.instrument_name, API.Deribit.getBook(x.instrument_name));
 
-            inactive = new List<Instrument>();
-            foreach (var x in optionsBTC)
-                if (x.is_active == false)
-                    inactive.Add(x);
-
-
             Save.currencies(currencies);
             Save.optionsBTC(optionsBTC);
             Save.book(orderBook);
-
+            var minmax = Instrument.getMinMax(optionsBTC);
+            minDateTime = minmax.Item1;
+            maxDateTime = minmax.Item1;
 
             historicalVolatilityBTC = API.Deribit.getHistVol();
             foreach (var x in optionsBTC)
@@ -145,17 +145,17 @@ namespace MasterComputations
                 throw;
             }
         }
-        private void paint()
+        private void paintDots()
         {
             PlotModel model = new PlotModel { LegendSymbolLength = 24 };
-            model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price" });
+            model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
             model.Axes.Add(new DateTimeAxis()
             {
                 Position = AxisPosition.Bottom,
                 Title = "Date",
                 IntervalType = DateTimeIntervalType.Days,
-                Minimum = DateTimeAxis.ToDouble(new DateTime(2018, 6, 1, 0, 0, 1)),
-                Maximum = DateTimeAxis.ToDouble(new DateTime(2020, 6, 1, 0, 0, 0)),
+                Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
+                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01,0,0,0)),
             });
             LineSeries lineserieCall = new LineSeries
             {
@@ -186,7 +186,55 @@ namespace MasterComputations
             model.Series.Add(lineserieCall);
             model.Series.Add(lineseriePut);
             this.plotView1.Model = model;
-        } // TODO insert line for every point until its expiration date.
+        }
+        private void paintDotsWithDuration()
+        {
+            PlotModel model = new PlotModel { LegendSymbolLength = 24 };
+            model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
+            model.Axes.Add(new DateTimeAxis()
+            {
+                Position = AxisPosition.Bottom,
+                Title = "Date",
+                IntervalType = DateTimeIntervalType.Days,
+                Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
+                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01, 0, 0, 0)),
+            });
+            foreach (var x in optionsBTC)
+                if (x.option_type == "call")
+                {
+                    LineSeries lineserieCall = new LineSeries
+                    {
+                        DataFieldX = "x",
+                        DataFieldY = "Y",
+                        StrokeThickness = 2,
+                        MarkerSize = 5,
+                        LineStyle = LineStyle.Dot,
+                        Color = OxyColors.Red,
+                        MarkerType = MarkerType.Triangle,
+                    };
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
+                    model.Series.Add(lineserieCall);
+                }
+                else
+                {
+                    LineSeries lineseriePut = new LineSeries
+                    {
+                        DataFieldX = "x",
+                        DataFieldY = "Y",
+                        StrokeThickness = 2,
+                        MarkerSize = 2,
+                        LineStyle = LineStyle.Solid,
+                        Color = OxyColors.Black,
+                        MarkerType = MarkerType.Circle,
+                    };
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
+                    model.Series.Add(lineseriePut);
+                }
+
+            this.plotView1.Model = model;
+        }
         public DateTime unixToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch

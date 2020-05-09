@@ -1,5 +1,6 @@
 ﻿using ProtoBuf;
 using System;
+using System.Collections.Generic;
 
 namespace MasterComputations.Data
 {
@@ -47,6 +48,23 @@ namespace MasterComputations.Data
             strike = new float(); tick_size = new float(); max_liquidation_commission = new float();
             creation_timestamp = new Int64(); expiration_timestamp = new Int64(); max_leverage = new int();
             is_active = new bool();
+        }
+
+        public static Tuple<long, long> getMinMax(List<Instrument> optionsBTC)
+        {
+            var inactive = new List<Instrument>();
+            var minDateTime = long.MaxValue;
+            var maxDateTime = long.MinValue;
+            foreach (var x in optionsBTC)
+            {
+                if (x.is_active == false)
+                    inactive.Add(x);
+                if (x.creation_timestamp < minDateTime)
+                    minDateTime = x.creation_timestamp;
+                if (x.expiration_timestamp > maxDateTime)
+                    maxDateTime = x.expiration_timestamp;
+            }
+            return new Tuple<long, long>(minDateTime, maxDateTime);
         }
     }
 }
