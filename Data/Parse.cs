@@ -120,7 +120,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                List<Book> retval = new List<Book>();
+                var retval = new List<Book>();
                 Book bookToAdd = new Book();
                 bookToAdd.change_id = x.change_id;
                 bookToAdd.estimated_delivery_price = x.estimated_delivery_price;
@@ -166,50 +166,51 @@ namespace MasterComputations.Data
                 return new List<Book>();
             }
         }
-        //TODO
-        public static List<Tuple<long, double>> ticker(dynamic input)
+        public static Book ticker(dynamic x)
         {
-            List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
+            try
             {
-                {
-                    {
-                        //"underlying_price": 9936.78,
-                        //  "underlying_index": "SYN.BTC-8MAY20",
-                        //  "timestamp": 1588897318040,
-                        //  "stats": {
-                        //    "volume": null,
-                        //    "price_change": null,
-                        //    "low": null,
-                        //    "high": null
-                        //  },
-                        //  "state": "open",
-                        //  "settlement_price": 0.18,
-                        //  "open_interest": 0.0,
-                        //  "min_price": 0.075,
-                        //  "max_price": 0.1465,
-                        //  "mark_price": 0.1075835,
-                        //  "mark_iv": 179.23,
-                        //  "last_price": null,
-                        //  "interest_rate": 0.0,
-                        //  "instrument_name": "BTC-8MAY20-11000-P",
-                        //  "index_price": 9936.57,
-                        //  "greeks": {
-                        //    "vega": 0.19434,
-                        //    "theta": -17.4153,
-                        //    "rho": -0.09339,
-                        //    "gamma": 0.00013,
-                        //    "delta": -0.97095
-                        //  },
-                        //  "estimated_delivery_price": 9936.57,
-                        //  "bid_iv": 0.0,
-                        //  "best_bid_price": 0.013,
-                        //  "best_bid_amount": 0.5,
-                        //  "best_ask_price": 0.6665,
-                        //  "best_ask_amount": 0.1,
-                        //  "ask_iv": 500.0
-                    }
-                }
-                return new List<Tuple<long, double>>();
+                Book bookToAdd = new Book();
+                bookToAdd.estimated_delivery_price = x.estimated_delivery_price;
+                bookToAdd.greeks.vega = x.greeks.vega;
+                bookToAdd.greeks.theta = x.greeks.theta;
+                bookToAdd.greeks.rho = x.greeks.rho;
+                bookToAdd.greeks.gamma = x.greeks.gamma;
+                bookToAdd.greeks.delta = x.greeks.delta;
+                bookToAdd.index_price = x.index_price;
+                bookToAdd.instrument_name = x.instrument_name;
+                bookToAdd.interest_rate = x.interest_rate;
+                if (x.last_price != null)
+                    bookToAdd.last_price = x.last_price;
+                bookToAdd.mark_iv = x.mark_iv;
+                bookToAdd.mark_price = x.mark_price;
+                bookToAdd.max_price = x.max_price;
+                bookToAdd.min_price = x.min_price;
+                bookToAdd.open_interest = x.open_interest;
+                if (x.settlement_price != null)
+                    bookToAdd.settlement_price = x.settlement_price;
+                bookToAdd.state = x.state;
+                if (x.stats.high != null)
+                    bookToAdd.stats.high = x.stats.high;
+                if (x.stats.low != null)
+                    bookToAdd.stats.low = x.stats.low;
+                if (x.stats.price_change != null)
+                    bookToAdd.stats.price_change = x.stats.price_change;
+                if (x.stats.volume != null)
+                    bookToAdd.stats.volume = x.stats.volume;
+                bookToAdd.timestamp = x.timestamp;
+                bookToAdd.underlying_index = x.underlying_index;
+                bookToAdd.underlying_price = x.underlying_price;
+                bookToAdd.best_ask_amount = x.best_ask_amount;
+                bookToAdd.best_ask_price = x.best_ask_price;
+                bookToAdd.best_bid_amount = x.best_bid_amount;
+                bookToAdd.best_bid_price = x.best_bid_price;
+                return bookToAdd;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return new Book();
             }
         }
         //TOfix

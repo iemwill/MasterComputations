@@ -83,7 +83,7 @@ namespace MasterComputations
             historicalVolatilityBTC = API.Deribit.getHistVol();
             foreach (var x in optionsBTC)
             {
-                //var tick = API.Deribit.getTicker(x.instrument_name);//TODO
+                orderBook[x.instrument_name].Add(API.Deribit.getTicker(x.instrument_name));
             }
         }
         private void fillGrid()

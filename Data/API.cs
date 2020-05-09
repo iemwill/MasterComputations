@@ -38,7 +38,7 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.hisVol(res);
             }
-            public static List<Tuple<long, double>> getTicker(string name)
+            public static Book getTicker(string name)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);
