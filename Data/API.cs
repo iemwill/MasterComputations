@@ -4,6 +4,12 @@ using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 
 namespace MasterComputations
 {
@@ -20,16 +26,16 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.currencies(res);
             }
-            public static List<Instrument> getInstruments(string symbol = "BTC", bool getFutures= false)
+            public static List<Instrument> getInstruments(string symbol = "BTC", string kind="option")
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);
                 Object result = apiInstance.PublicGetInstrumentsGet(symbol);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
-                return Parse.instruments(res, getFutures);
+                return Parse.instruments(res, kind);
             }
-            public static List<Tuple<long, double>> getHistVol(string symbol="BTC")
+            public static List<Tuple<long, double>> getHistVol(string symbol = "BTC")
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);
@@ -56,7 +62,24 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.book(res);
             }
-            //TOfix
+            //WithouAPI
+            public static List<Instrument> getInstrumentsWA(string symbol = "BTC", string kind = "option", bool expired = false)
+            {
+                var encoding = Encoding.UTF8;
+                var urlForAuth = @"http://www.deribit.com/api/v2/public/get_instruments"
+                + "?currency=" + symbol + "&kind=" + kind + "&expired=" + expired.ToString().ToLower();
+                var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                string read = "";
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.Default))
+                    read = reader.ReadToEnd();
+                dynamic stuff = JsonConvert.DeserializeObject(read);
+                var res = stuff.result;
+                return Parse.instruments(res, kind);
+            }
+            //TODO
             public static ChartData getChartData(string name, int start, int end, string intervall)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";

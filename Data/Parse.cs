@@ -58,7 +58,7 @@ namespace MasterComputations.Data
             }
             return retval;
         }
-        public static List<Instrument> instruments(dynamic input, bool getFutures)
+        public static List<Instrument> instruments(dynamic input, string kind)
         {
             List<Instrument> options = new List<Instrument>();
             List<Instrument> futures = new List<Instrument>();
@@ -103,7 +103,7 @@ namespace MasterComputations.Data
                     futures.Add(instr);
                 }
             }
-            if (!getFutures)
+            if (kind=="option")
                 return options;
             else
                 return futures;

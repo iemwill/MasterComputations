@@ -32,6 +32,8 @@ namespace MasterComputations
             //    1585699200,//000,
             //    1588291200,//000,
             //    "1D");
+            //var check = API.Deribit.getInstruments();
+            //var check2 = API.Deribit.getInstrumentsWA("BTC", "option", false);
         }
         private void button1_Click(object sender, EventArgs e)
         {
