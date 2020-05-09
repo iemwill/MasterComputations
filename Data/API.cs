@@ -20,7 +20,7 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.currencies(res);
             }
-            public static List<Instrument> getInstruments(string symbol = "BTC", bool getFutures = false)
+            public static List<Instrument> getInstruments(string symbol = "BTC", bool getFutures= false)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);
@@ -57,10 +57,10 @@ namespace MasterComputations
                 return Parse.book(res);
             }
             //TOfix
-            public static List<Instrument> getChartData(string name, int start, int end, string intervall)
+            public static ChartData getChartData(string name, int start, int end, string intervall)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new MarketDataApi(Configuration.Default);
+                var apiInstance = new PublicApi(Configuration.Default);
                 // Change the user name for a subaccount
                 Object result = apiInstance.PublicGetTradingviewChartDataGet(name, start, end, intervall);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());

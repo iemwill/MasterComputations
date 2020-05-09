@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.ServiceModel.Channels;
 using System.Windows.Forms;
 
 namespace MasterComputations.Data
@@ -214,14 +213,33 @@ namespace MasterComputations.Data
             }
         }
         //TOfix
-        public static List<Tuple<long, double>> chartData(dynamic input)
+        public static ChartData chartData(dynamic x)
         {
-            List<Tuple<long, double>> retval = new List<Tuple<long, double>>();
-            foreach (var x in input)
+            ChartData gg = new ChartData();
+            if (x.status != "no_data")
             {
-                retval.Add(new Tuple<long, double>(new long(), new double()));
+                if (x.close != null)
+                    gg.close = x.close;
+                if (x.cost != null)
+                    gg.cost = x.cost;
+                if (x.high != null)
+                    gg.high = x.high;
+                if (x.low != null)
+                    gg.low = x.low;
+                if (x.open != null)
+                    gg.open = x.open;
+                gg.status = x.status;
+                if (x.ticks != null)
+                    gg.ticks = x.ticks;
+                if (x.volume != null)
+                    gg.volume = x.volume;
+                return gg;
             }
-            return retval;
+            else
+            {
+                gg.status = x.status;
+                return gg;
+            }
         }
     }
 }

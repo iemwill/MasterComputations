@@ -21,12 +21,18 @@ namespace MasterComputations
         public BaseForm()
         {
             InitializeComponent();
-            //inactive = API.Deribit.getChartData(
+            //var inactive = API.Deribit.getChartData(
             //    "BTC-15MAY20-10000-C",
-            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020,05,01, 0, 0, 0).ToUniversalTime())),
-            //    Convert.ToInt32(dateTimeToUnix(DateTime.UtcNow)),
-            //    ""
+            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020, 05, 1, 8, 0, 0).ToUniversalTime())),
+            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020, 05, 8, 8, 0, 0).ToUniversalTime())),
+            //    "1D"
             //);//TODO
+            //var check = API.Deribit.getChartData(
+            //    "BTC-PERPETUAL",
+            //    1585699200,//000,
+            //    1588291200,//000,
+            //    "1D");
+            var check2 = API.Deribit.getInstruments("BTC");
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -67,7 +73,7 @@ namespace MasterComputations
         {
             //Get supported currencies and options for BTC
             currencies = API.Deribit.getCurrencies();
-            optionsBTC = API.Deribit.getInstruments();            
+            optionsBTC = API.Deribit.getInstruments();
             //fill current Orderbook.
             orderBook = new Dictionary<string, List<Book>>();
             foreach (var x in optionsBTC)
@@ -155,7 +161,7 @@ namespace MasterComputations
                 Title = "Date",
                 IntervalType = DateTimeIntervalType.Days,
                 Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01,0,0,0)),
+                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01, 0, 0, 0)),
             });
             LineSeries lineserieCall = new LineSeries
             {
