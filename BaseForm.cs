@@ -137,6 +137,7 @@ namespace MasterComputations
         {
             try
             {
+                dataGridView1.Rows.Clear();
                 dataGridView1.ColumnCount = 10;
                 dataGridView1.Columns[0].Name = "option type";
                 dataGridView1.Columns[1].Name = "settlement period";

@@ -66,7 +66,7 @@ namespace MasterComputations
             public static List<Instrument> getInstrumentsWA(string symbol = "BTC", string kind = "option", bool expired = false)
             {
                 var encoding = Encoding.UTF8;
-                var urlForAuth = @"http://www.deribit.com/api/v2/public/get_instruments"
+                var urlForAuth = @"https://www.deribit.com/api/v2/public/get_instruments"
                 + "?currency=" + symbol + "&kind=" + kind + "&expired=" + expired.ToString().ToLower();
                 var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
                 request.ContentType = "application/json";
@@ -82,7 +82,7 @@ namespace MasterComputations
             public static ChartData getChartDataWA(string name, long start, long end, string intervall)
             {
                 var encoding = Encoding.UTF8;
-                var urlForAuth = @"http://www.deribit.com/api/v2/public/get_tradingview_chart_data"
+                var urlForAuth = @"https://www.deribit.com/api/v2/public/get_tradingview_chart_data"
                 + "?instrument_name=" + name + "&start_timestamp=" + start.ToString() + "&end_timestamp=" + end.ToString() + "&resolution=" + intervall;
                 var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
                 request.ContentType = "application/json";
