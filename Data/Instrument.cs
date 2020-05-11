@@ -12,7 +12,7 @@ namespace MasterComputations.Data
         [ProtoMember(2)]
         public float taker_commission { get; set; }
         [ProtoMember(3)]
-        public float strike { get; set; }
+        public double strike { get; set; }
         [ProtoMember(4)]
         public string settlement_period { get; set; }
         [ProtoMember(5)]
@@ -45,7 +45,7 @@ namespace MasterComputations.Data
         {
             base_currency = ""; instrument_name = ""; kind = ""; option_type = ""; quote_currency = ""; settlement_period = "";
             contract_size = new float(); maker_commission = new float(); min_trade_amount = new float(); taker_commission = new float();
-            strike = new float(); tick_size = new float(); max_liquidation_commission = new float();
+            strike = new double(); tick_size = new float(); max_liquidation_commission = new float();
             creation_timestamp = new Int64(); expiration_timestamp = new Int64(); max_leverage = new int();
             is_active = new bool();
         }

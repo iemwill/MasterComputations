@@ -42,13 +42,37 @@ namespace MasterComputations
         {
             try
             {
-                currencies = Data.Load.currencies();
-                activeOptionsBTC = Data.Load.activeOptionsBTC();
-                inactiveOptionsBTC = Data.Load.inactiveOptionsBTC();
-                //chartData = Data.Load.chartData();
-                //orderBook = Data.Load.book();
-                fillGrid(activeOptionsBTC);
-                paintDots(activeOptionsBTC);
+                var check = dataGridView1.SelectedRows;
+                if (check.Count == 0)
+                {
+                    currencies = Data.Load.currencies();
+                    activeOptionsBTC = Data.Load.activeOptionsBTC();
+                    inactiveOptionsBTC = Data.Load.inactiveOptionsBTC();
+                    //chartData = Data.Load.chartData();
+                    //orderBook = Data.Load.book();
+                    fillGrid(activeOptionsBTC);
+                    paintDots(activeOptionsBTC);
+                }
+                else
+                {
+                    List<Instrument> plotta = new List<Instrument>();
+                    foreach (DataGridViewRow x in check)
+                    {
+                        Instrument toAdd = new Instrument();
+                        toAdd.option_type = x.Cells[0].FormattedValue.ToString();
+                        toAdd.settlement_period = x.Cells[1].FormattedValue.ToString();
+                        toAdd.strike = Convert.ToDouble(x.Cells[2].FormattedValue);
+                        toAdd.instrument_name = x.Cells[3].FormattedValue.ToString();
+                        toAdd.creation_timestamp = dateTimeToUnix(Convert.ToDateTime(x.Cells[4].FormattedValue));
+                        toAdd.expiration_timestamp = dateTimeToUnix(Convert.ToDateTime(x.Cells[5].FormattedValue));
+                        toAdd.base_currency = x.Cells[6].FormattedValue.ToString();
+                        toAdd.quote_currency = x.Cells[7].FormattedValue.ToString();
+                        //toAdd.maker_commission = Convert.ToInt64(x.Cells[8].FormattedValue);
+                        //toAdd.taker_commission = Convert.ToInt64(x.Cells[9].FormattedValue);
+                        plotta.Add(toAdd);
+                    }
+                    paintDotsWithDuration(plotta);
+                }
             }
             catch (Exception)
             {
@@ -198,7 +222,14 @@ namespace MasterComputations
             var minmax = Instrument.getMinMax(input);
             var minDateTime = minmax.Item1;
             var maxDateTime = minmax.Item2;
-            PlotModel model = new PlotModel { LegendSymbolLength = 24 };
+            PlotModel model = new PlotModel
+            {
+                LegendSymbolLength = 20,
+                LegendTitle = "Legend",
+                LegendPosition = LegendPosition.LeftTop,
+                LegendBackground = OxyColor.FromAColor(200, OxyColors.White),
+                LegendBorder = OxyColors.Black
+            };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
             model.Axes.Add(new DateTimeAxis()
             {
@@ -210,6 +241,7 @@ namespace MasterComputations
             });
             LineSeries lineserieCall = new LineSeries
             {
+                Title = "Call",
                 DataFieldX = "x",
                 DataFieldY = "Y",
                 StrokeThickness = 2,
@@ -222,6 +254,7 @@ namespace MasterComputations
             };
             LineSeries lineseriePut = new LineSeries
             {
+                Title = "Put",
                 DataFieldX = "x",
                 DataFieldY = "Y",
                 StrokeThickness = 2,
@@ -245,7 +278,14 @@ namespace MasterComputations
             var minmax = Instrument.getMinMax(input);
             var minDateTime = minmax.Item1;
             var maxDateTime = minmax.Item2;
-            PlotModel model = new PlotModel { LegendSymbolLength = 24 };
+            PlotModel model = new PlotModel
+            {
+                LegendSymbolLength = 20,
+                LegendTitle = "Legend",
+                LegendPosition = LegendPosition.LeftTop,
+                LegendBackground = OxyColor.FromAColor(200, OxyColors.White),
+                LegendBorder = OxyColors.Black
+            };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
             model.Axes.Add(new DateTimeAxis()
             {
@@ -290,7 +330,33 @@ namespace MasterComputations
                     lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
                     model.Series.Add(lineseriePut);
                 }
-
+            // Add empty lineseries for Legend.
+            LineSeries lineseriePut2 = new LineSeries
+            {
+                Title = "Put",
+                DataFieldX = "x",
+                DataFieldY = "Y",
+                StrokeThickness = 2,
+                MarkerSize = 2,
+                LineStyle = LineStyle.DashDot,
+                Color = OxyColors.Red,
+                MarkerType = MarkerType.Circle,
+            };
+            LineSeries lineserieCall2 = new LineSeries
+            {
+                Title = "Call",
+                DataFieldX = "x",
+                DataFieldY = "Y",
+                StrokeThickness = 2,
+                MarkerStrokeThickness = 2,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.Black,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColors.Black,
+                MarkerType = MarkerType.Cross,
+            };
+            model.Series.Add(lineseriePut2);
+            model.Series.Add(lineserieCall2);
             this.plotView1.Model = model;
         }
         public DateTime unixToDateTime(long unixTimeStamp)
