@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterComputations", "MasterComputations.csproj", "{A7F328D6-2B63-454F-8BE7-DCF9C0416324}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MCone", "Setup1\Setup1.vdproj", "{08F778EE-8641-4C36-AC4F-55B54D4951A8}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MCsetup", "MCsetup\MCsetup.vdproj", "{FFB5DEAD-88EC-4ED0-877B-85660D2A7BD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,12 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08F778EE-8641-4C36-AC4F-55B54D4951A8}.Debug|Any CPU.ActiveCfg = Debug
-		{08F778EE-8641-4C36-AC4F-55B54D4951A8}.Release|Any CPU.ActiveCfg = Release
+		{FFB5DEAD-88EC-4ED0-877B-85660D2A7BD0}.Debug|Any CPU.ActiveCfg = Debug
+		{FFB5DEAD-88EC-4ED0-877B-85660D2A7BD0}.Debug|Any CPU.Build.0 = Debug
+		{FFB5DEAD-88EC-4ED0-877B-85660D2A7BD0}.Release|Any CPU.ActiveCfg = Release
+		{FFB5DEAD-88EC-4ED0-877B-85660D2A7BD0}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

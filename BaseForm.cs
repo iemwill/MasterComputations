@@ -213,10 +213,12 @@ namespace MasterComputations
                 DataFieldX = "x",
                 DataFieldY = "Y",
                 StrokeThickness = 2,
-                MarkerSize = 5,
+                MarkerStrokeThickness = 2,
+                MarkerSize = 4,
+                MarkerStroke = OxyColors.Black,
                 LineStyle = LineStyle.None,
-                Color = OxyColors.Red,
-                MarkerType = MarkerType.Triangle,
+                Color = OxyColors.Black,
+                MarkerType = MarkerType.Cross,
             };
             LineSeries lineseriePut = new LineSeries
             {
@@ -225,7 +227,7 @@ namespace MasterComputations
                 StrokeThickness = 2,
                 MarkerSize = 2,
                 LineStyle = LineStyle.None,
-                Color = OxyColors.Black,
+                Color = OxyColors.Red,
                 MarkerType = MarkerType.Circle,
             };
             foreach (var x in input)
@@ -261,10 +263,12 @@ namespace MasterComputations
                         DataFieldX = "x",
                         DataFieldY = "Y",
                         StrokeThickness = 2,
-                        MarkerSize = 5,
-                        LineStyle = LineStyle.Dot,
-                        Color = OxyColors.Red,
-                        MarkerType = MarkerType.Triangle,
+                        MarkerStrokeThickness = 2,
+                        MarkerSize = 4,
+                        MarkerStroke = OxyColors.Black,
+                        LineStyle = LineStyle.Solid,
+                        Color = OxyColors.Black,
+                        MarkerType = MarkerType.Cross,
                     };
                     lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
                     lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
@@ -278,8 +282,8 @@ namespace MasterComputations
                         DataFieldY = "Y",
                         StrokeThickness = 2,
                         MarkerSize = 2,
-                        LineStyle = LineStyle.Solid,
-                        Color = OxyColors.Black,
+                        LineStyle = LineStyle.DashDot,
+                        Color = OxyColors.Red,
                         MarkerType = MarkerType.Circle,
                     };
                     lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));

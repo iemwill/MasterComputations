@@ -2,6 +2,7 @@
 using ProtoBuf;
 using System.IO;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MasterComputations.Data
 {
@@ -11,8 +12,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "currencies.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -28,8 +28,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "activeOptionsBTC.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -45,8 +44,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "inactiveOptionsBTC.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -62,8 +60,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "orderBook.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -79,8 +76,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
-                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "chartData.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
