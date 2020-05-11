@@ -12,28 +12,15 @@ namespace MasterComputations
     public partial class BaseForm : Form
     {
         public List<Currency> currencies;
-        public List<Instrument> optionsBTC;
-        public long minDateTime;
-        public long maxDateTime;
-        public List<Instrument> inactive;
-        public List<Tuple<long, double>> historicalVolatilityBTC;
-        public Dictionary<string, List<Book>> orderBook;
+        public List<Instrument> activeOptionsBTC;
+        public List<Instrument> inactiveOptionsBTC;
+        public List<Tuple<long, double>> historicalVolatilityBTC; // toSave!
+        public Dictionary<string, List<Book>> orderBook;  //toSave?
+        public Dictionary<string, ChartData> chartData;
+        //int noData= 0;
         public BaseForm()
         {
             InitializeComponent();
-            //var inactive = API.Deribit.getChartData(
-            //    "BTC-15MAY20-10000-C",
-            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020, 05, 1, 8, 0, 0).ToUniversalTime())),
-            //    Convert.ToInt32(dateTimeToUnix(new DateTime(2020, 05, 8, 8, 0, 0).ToUniversalTime())),
-            //    "1D"
-            //);//TODO
-            //var check = API.Deribit.getChartData(
-            //    "BTC-PERPETUAL",
-            //    1585699200,//000,
-            //    1588291200,//000,
-            //    "1D");
-            //var check = API.Deribit.getInstruments();
-            //var check2 = API.Deribit.getInstrumentsWA("BTC", "option", false);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -42,8 +29,8 @@ namespace MasterComputations
                 {
                     loadAPI();
                     MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
-                    fillGrid();
-                    paintDotsWithDuration();
+                    fillGrid(activeOptionsBTC);
+                    paintDotsWithDuration(activeOptionsBTC);
                 }
                 catch (Exception err)
                 {
@@ -56,44 +43,97 @@ namespace MasterComputations
             try
             {
                 currencies = Data.Load.currencies();
-                optionsBTC = Data.Load.optionsBTC();
-                orderBook = Data.Load.book();
-                MessageBox.Show("Data was load successfully. Now filling Table 1 and Graphic 1.");
-                var minmax = Instrument.getMinMax(optionsBTC);
-                minDateTime = minmax.Item1;
-                maxDateTime = minmax.Item1;
-                fillGrid();
-                paintDots();
+                activeOptionsBTC = Data.Load.activeOptionsBTC();
+                inactiveOptionsBTC = Data.Load.inactiveOptionsBTC();
+                //chartData = Data.Load.chartData();
+                //orderBook = Data.Load.book();
+                fillGrid(activeOptionsBTC);
+                paintDots(activeOptionsBTC);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        private void drawInactive_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fillGrid(inactiveOptionsBTC);
+                paintDotsWithDuration(inactiveOptionsBTC);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+        private void drawInactiveND_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fillGrid(inactiveOptionsBTC);
+                paintDots(inactiveOptionsBTC);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
         private void loadAPI()
         {
             //Get supported currencies and options for BTC
             currencies = API.Deribit.getCurrencies();
-            optionsBTC = API.Deribit.getInstruments();
+            activeOptionsBTC = API.Deribit.getInstrumentsWA("BTC", "option", false);
+            inactiveOptionsBTC = API.Deribit.getInstrumentsWA("BTC", "option", true);
             //fill current Orderbook.
-            orderBook = new Dictionary<string, List<Book>>();
-            foreach (var x in optionsBTC)
-                orderBook.Add(x.instrument_name, API.Deribit.getBook(x.instrument_name));
+            //orderBook = new Dictionary<string, List<Book>>();
+            //foreach (var x in activeOptionsBTC)
+            //    orderBook.Add(x.instrument_name, API.Deribit.getBook(x.instrument_name));
 
             Save.currencies(currencies);
-            Save.optionsBTC(optionsBTC);
-            Save.book(orderBook);
-            var minmax = Instrument.getMinMax(optionsBTC);
-            minDateTime = minmax.Item1;
-            maxDateTime = minmax.Item1;
+            Save.activeOptionsBTC(activeOptionsBTC);
+            Save.inactiveOptionsBTC(inactiveOptionsBTC);
 
-            historicalVolatilityBTC = API.Deribit.getHistVol();
-            foreach (var x in optionsBTC)
-            {
-                orderBook[x.instrument_name].Add(API.Deribit.getTicker(x.instrument_name));
-            }
+            //historicalVolatilityBTC = API.Deribit.getHistVol();
+
+            //chart data
+            //chartData = new Dictionary<string, ChartData>();
+            //foreach (var x in activeOptionsBTC)
+            //{
+            //    orderBook[x.instrument_name].Add(API.Deribit.getTicker(x.instrument_name));
+            //    chartData.Add(
+            //        x.instrument_name, API.Deribit.getChartDataWA(
+            //            x.instrument_name,
+            //            dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime()),
+            //            dateTimeToUnix(new DateTime(2020, 05, 2, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime()),
+            //            "1D"
+            //    ));
+            //}
+
+            //foreach (var x in activeOptionsBTC)
+            //{
+            //    //var startTime = dateTimeToUnix(new DateTime(2018, 05, 16, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //    //var endTime = dateTimeToUnix(new DateTime(2018, 07, 15, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //    var startTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //    var endTime = dateTimeToUnix(new DateTime(2020, 05, 11, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //    if (x.creation_timestamp < endTime && x.expiration_timestamp > startTime)
+            //    {
+            //        ChartData toAdd = API.Deribit.getChartDataWA(
+            //            x.instrument_name,
+            //            startTime,
+            //            endTime,
+            //            "1D"
+            //        );
+            //        if (toAdd.status != "no_data")
+            //            chartData.Add(x.instrument_name, toAdd);
+            //        else
+            //            noData += 1;
+            //    }
+            //}
+            //Save.book(orderBook);
+            //Save.chartData(chartData);
         }
-        private void fillGrid()
+        private void fillGrid(List<Instrument> input)
         {
             try
             {
@@ -108,7 +148,7 @@ namespace MasterComputations
                 dataGridView1.Columns[7].Name = "quote currency";
                 dataGridView1.Columns[8].Name = "maker commission";
                 dataGridView1.Columns[9].Name = "taker comission";
-                foreach (var x in optionsBTC)
+                foreach (var x in input)
                 {//add code here for adding rows to dataGridviewFiles
                     DataGridViewRow tempRow = new DataGridViewRow();
 
@@ -152,17 +192,20 @@ namespace MasterComputations
                 throw;
             }
         }
-        private void paintDots()
+        private void paintDots(List<Instrument> input)
         {
+            var minmax = Instrument.getMinMax(input);
+            var minDateTime = minmax.Item1;
+            var maxDateTime = minmax.Item2;
             PlotModel model = new PlotModel { LegendSymbolLength = 24 };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
             model.Axes.Add(new DateTimeAxis()
             {
                 Position = AxisPosition.Bottom,
-                Title = "Date",
+                Title = "Time",
                 IntervalType = DateTimeIntervalType.Days,
                 Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01, 0, 0, 0)),
+                Maximum = DateTimeAxis.ToDouble(unixToDateTime(maxDateTime / 1000)),
             });
             LineSeries lineserieCall = new LineSeries
             {
@@ -184,7 +227,7 @@ namespace MasterComputations
                 Color = OxyColors.Black,
                 MarkerType = MarkerType.Circle,
             };
-            foreach (var x in optionsBTC)
+            foreach (var x in input)
                 if (x.option_type == "call")
                     lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
                 else
@@ -194,19 +237,22 @@ namespace MasterComputations
             model.Series.Add(lineseriePut);
             this.plotView1.Model = model;
         }
-        private void paintDotsWithDuration()
+        private void paintDotsWithDuration(List<Instrument> input)
         {
+            var minmax = Instrument.getMinMax(input);
+            var minDateTime = minmax.Item1;
+            var maxDateTime = minmax.Item2;
             PlotModel model = new PlotModel { LegendSymbolLength = 24 };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Strike Price USD" });
             model.Axes.Add(new DateTimeAxis()
             {
                 Position = AxisPosition.Bottom,
-                Title = "Date",
+                Title = "Time",
                 IntervalType = DateTimeIntervalType.Days,
                 Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(new DateTime(2021, 06, 01, 0, 0, 0)),
+                Maximum = DateTimeAxis.ToDouble(unixToDateTime(maxDateTime / 1000)),
             });
-            foreach (var x in optionsBTC)
+            foreach (var x in input)
                 if (x.option_type == "call")
                 {
                     LineSeries lineserieCall = new LineSeries
@@ -242,19 +288,19 @@ namespace MasterComputations
 
             this.plotView1.Model = model;
         }
-        public DateTime unixToDateTime(double unixTimeStamp)
+        public DateTime unixToDateTime(long unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
-        public double dateTimeToUnix(DateTime dt)
+        public long dateTimeToUnix(DateTime dt)
         {
             // Unix timestamp is seconds past epoch
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             var unix = (dt.ToUniversalTime() - dtDateTime);
-            return unix.TotalSeconds;
+            return Convert.ToInt64(unix.TotalMilliseconds);
         }
     }
 }

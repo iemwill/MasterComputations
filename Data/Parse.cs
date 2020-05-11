@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -103,7 +104,7 @@ namespace MasterComputations.Data
                     futures.Add(instr);
                 }
             }
-            if (kind=="option")
+            if (kind == "option")
                 return options;
             else
                 return futures;
@@ -212,34 +213,62 @@ namespace MasterComputations.Data
                 return new Book();
             }
         }
-        //TOfix
-        public static ChartData chartData(dynamic x)
+        public static ChartData chartData(dynamic input)
         {
-            ChartData gg = new ChartData();
-            if (x.status != "no_data")
+            ChartData toAdd = new ChartData();
+            List<double> volumes = new List<double>();
+            List<long> ticks = new List<long>();
+            List<double> close = new List<double>();
+            List<double> open = new List<double>();
+            List<double> cost = new List<double>();
+            List<double> high = new List<double>();
+            List<double> low = new List<double>();
+            if (input.status != "no_data")
             {
-                if (x.close != null)
-                    gg.close = x.close;
-                if (x.cost != null)
-                    gg.cost = x.cost;
-                if (x.high != null)
-                    gg.high = x.high;
-                if (x.low != null)
-                    gg.low = x.low;
-                if (x.open != null)
-                    gg.open = x.open;
-                gg.status = x.status;
-                if (x.ticks != null)
-                    gg.ticks = x.ticks;
-                if (x.volume != null)
-                    gg.volume = x.volume;
-                return gg;
+                foreach (var x in input)
+                {
+                    if (x.Name == "volume")
+                    {
+                        foreach (var y in x.Value)
+                            volumes.Add(y.Value);
+                    }
+                    else if (x.Name == "cost")
+                    {
+                        foreach (var y in x.Value)
+                            cost.Add(y.Value);
+                    }
+                    else if (x.Name == "low")
+                    {
+                        foreach (var y in x.Value)
+                            low.Add(y.Value);
+                    }
+                    else if (x.Name == "high")
+                    {
+                        foreach (var y in x.Value)
+                            high.Add(y.Value);
+                    }
+                    else if (x.Name == "close")
+                    {
+                        foreach (var y in x.Value)
+                            close.Add(y.Value);
+                    }
+                    else if (x.Name == "open")
+                    {
+                        foreach (var y in x.Value)
+                            open.Add(y.Value);
+                    }
+                    else if (x.Name == "ticks")
+                    {
+                        foreach (var y in x.Value)
+                            ticks.Add(y.Value);
+                    }
+                }
+                toAdd.high = high; toAdd.low = low; toAdd.open = open; toAdd.volume = volumes;
+                toAdd.close = close; toAdd.cost = cost; toAdd.ticks = ticks;
             }
             else
-            {
-                gg.status = x.status;
-                return gg;
-            }
+                toAdd.status = "no_data";
+            return toAdd;
         }
     }
 }

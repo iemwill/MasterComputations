@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.parseCSV = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.showInactive = new System.Windows.Forms.Button();
             this.publicAPIderibit = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.drawInactiveND = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -48,6 +51,14 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,27 +67,29 @@
             this.parseCSV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.parseCSV.Location = new System.Drawing.Point(0, 0);
             this.parseCSV.Name = "parseCSV";
-            this.parseCSV.Size = new System.Drawing.Size(140, 54);
+            this.parseCSV.Size = new System.Drawing.Size(138, 25);
             this.parseCSV.TabIndex = 0;
             this.parseCSV.Text = "GET ONLINE DATA";
             this.parseCSV.UseVisualStyleBackColor = true;
             this.parseCSV.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // showInactive
             // 
-            this.button2.Location = new System.Drawing.Point(88, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(8, 8);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.showInactive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showInactive.Location = new System.Drawing.Point(0, 0);
+            this.showInactive.Name = "showInactive";
+            this.showInactive.Size = new System.Drawing.Size(157, 25);
+            this.showInactive.TabIndex = 1;
+            this.showInactive.Text = "SHOW INACTIVE OPTIONS";
+            this.showInactive.UseVisualStyleBackColor = true;
+            this.showInactive.Click += new System.EventHandler(this.drawInactive_Click);
             // 
             // publicAPIderibit
             // 
             this.publicAPIderibit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.publicAPIderibit.Location = new System.Drawing.Point(0, 0);
             this.publicAPIderibit.Name = "publicAPIderibit";
-            this.publicAPIderibit.Size = new System.Drawing.Size(155, 54);
+            this.publicAPIderibit.Size = new System.Drawing.Size(138, 25);
             this.publicAPIderibit.TabIndex = 2;
             this.publicAPIderibit.Text = "LOAD DATA";
             this.publicAPIderibit.UseVisualStyleBackColor = true;
@@ -125,14 +138,61 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.parseCSV);
+            this.splitContainer3.Panel1.Controls.Add(this.splitContainer4);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.publicAPIderibit);
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer5);
             this.splitContainer3.Size = new System.Drawing.Size(299, 54);
-            this.splitContainer3.SplitterDistance = 140;
+            this.splitContainer3.SplitterDistance = 138;
             this.splitContainer3.TabIndex = 3;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.parseCSV);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.publicAPIderibit);
+            this.splitContainer4.Size = new System.Drawing.Size(138, 54);
+            this.splitContainer4.SplitterDistance = 25;
+            this.splitContainer4.TabIndex = 1;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            this.splitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.showInactive);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.drawInactiveND);
+            this.splitContainer5.Size = new System.Drawing.Size(157, 54);
+            this.splitContainer5.SplitterDistance = 25;
+            this.splitContainer5.TabIndex = 3;
+            // 
+            // drawInactiveND
+            // 
+            this.drawInactiveND.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drawInactiveND.Location = new System.Drawing.Point(0, 0);
+            this.drawInactiveND.Name = "drawInactiveND";
+            this.drawInactiveND.Size = new System.Drawing.Size(157, 25);
+            this.drawInactiveND.TabIndex = 2;
+            this.drawInactiveND.Text = "SHOW NO DURATION";
+            this.drawInactiveND.UseVisualStyleBackColor = true;
+            this.drawInactiveND.Click += new System.EventHandler(this.drawInactiveND_Click);
             // 
             // dataGridView1
             // 
@@ -161,7 +221,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 370);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.splitContainer1);
             this.Name = "BaseForm";
             this.Text = "Form1";
@@ -177,6 +236,14 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -185,13 +252,16 @@
         #endregion
 
         private System.Windows.Forms.Button parseCSV;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button showInactive;
         private System.Windows.Forms.Button publicAPIderibit;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private OxyPlot.WindowsForms.PlotView plotView1;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.SplitContainer splitContainer5;
+        private System.Windows.Forms.Button drawInactiveND;
     }
 }
 

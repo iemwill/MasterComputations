@@ -24,14 +24,14 @@ namespace MasterComputations.Data
                 throw;
             }
         }
-        public static bool optionsBTC(List<Instrument> input)
+        public static bool activeOptionsBTC(List<Instrument> input)
         {
             try
             {
                 //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
                 var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
                 Directory.CreateDirectory(path);
-                var path2 = path + "optionsBTC.will";
+                var path2 = path + "activeOptionsBTC.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                     Serializer.Serialize(fs, input);
                 return true;
@@ -41,7 +41,24 @@ namespace MasterComputations.Data
                 throw;
             }
         }
-        public static bool book(Dictionary<string,List<Book>> input)
+        public static bool inactiveOptionsBTC(List<Instrument> input)
+        {
+            try
+            {
+                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
+                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                Directory.CreateDirectory(path);
+                var path2 = path + "inactiveOptionsBTC.will";
+                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    Serializer.Serialize(fs, input);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static bool book(Dictionary<string, List<Book>> input)
         {
             try
             {
@@ -49,6 +66,23 @@ namespace MasterComputations.Data
                 var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
                 Directory.CreateDirectory(path);
                 var path2 = path + "orderBook.will";
+                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    Serializer.Serialize(fs, input);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static bool chartData(Dictionary<string, ChartData> input)
+        {
+            try
+            {
+                //var name = DateTime.Now.DayOfYear.ToString().Replace('.', '-').Replace(':', '-');
+                var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\MC\\";
+                Directory.CreateDirectory(path);
+                var path2 = path + "chartData.will";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                     Serializer.Serialize(fs, input);
                 return true;

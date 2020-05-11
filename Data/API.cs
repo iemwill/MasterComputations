@@ -79,14 +79,19 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.instruments(res, kind);
             }
-            //TODO
-            public static ChartData getChartData(string name, int start, int end, string intervall)
+            public static ChartData getChartDataWA(string name, long start, long end, string intervall)
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
-                // Change the user name for a subaccount
-                Object result = apiInstance.PublicGetTradingviewChartDataGet(name, start, end, intervall);
-                dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
+                var encoding = Encoding.UTF8;
+                var urlForAuth = @"http://www.deribit.com/api/v2/public/get_tradingview_chart_data"
+                + "?instrument_name=" + name + "&start_timestamp=" + start.ToString() + "&end_timestamp=" + end.ToString() + "&resolution=" + intervall;
+                var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                string read = "";
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.Default))
+                    read = reader.ReadToEnd();
+                dynamic stuff = JsonConvert.DeserializeObject(read);
                 var res = stuff.result;
                 return Parse.chartData(res);
             }
