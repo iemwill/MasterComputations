@@ -225,8 +225,13 @@ namespace MasterComputations.Data
             List<double> low = new List<double>();
             if (input.status != "no_data")
             {
+                var check = 0;
                 foreach (var x in input)
                 {
+                    foreach (var y in x)
+                    {
+                        check+=1;
+                    }
                     if (x.Name == "volume")
                     {
                         foreach (var y in x.Value)

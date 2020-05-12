@@ -26,7 +26,7 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.currencies(res);
             }
-            public static List<Instrument> getInstruments(string symbol = "BTC", string kind="option")
+            public static List<Instrument> getInstruments(string symbol = "BTC", string kind = "option")
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);
@@ -84,6 +84,23 @@ namespace MasterComputations
                 var encoding = Encoding.UTF8;
                 var urlForAuth = @"https://www.deribit.com/api/v2/public/get_tradingview_chart_data"
                 + "?instrument_name=" + name + "&start_timestamp=" + start.ToString() + "&end_timestamp=" + end.ToString() + "&resolution=" + intervall;
+                var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                string read = "";
+                using (var reader = new StreamReader(response.GetResponseStream(), Encoding.Default))
+                    read = reader.ReadToEnd();
+                dynamic stuff = JsonConvert.DeserializeObject(read);
+                var res = stuff.result;
+                return Parse.chartData(res);
+            }
+            public static ChartData getLastInstrumentsWD(string symbol, long start, long end, bool old, int count)
+            {
+                var encoding = Encoding.UTF8;
+                var urlForAuth = @"http://www.deribit.com/api/v2/public/get_last_trades_by_currency_and_time"
+                + "?currency=" + symbol + "&kind=option" + "&end_timestamp=" + end.ToString() + "&count=" + count +
+                "&include_old=" + old.ToString().ToLower() + "&sorting=asc" + "&start_timestamp=" + start.ToString();
                 var request = (HttpWebRequest)WebRequest.Create(urlForAuth);
                 request.ContentType = "application/json";
                 request.Method = "GET";

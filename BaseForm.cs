@@ -21,6 +21,9 @@ namespace MasterComputations
         public BaseForm()
         {
             InitializeComponent();
+            var startTime = dateTimeToUnix(new DateTime(2016, 11, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            var endTime = dateTimeToUnix(new DateTime(2016, 12, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            var check = API.Deribit.getLastInstrumentsWD("BTC", startTime, endTime, true, 1000);
         }
         private void button1_Click(object sender, EventArgs e)
         {
