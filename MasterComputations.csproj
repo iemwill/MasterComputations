@@ -89,6 +89,7 @@
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Save.cs" />
+    <Compile Include="Data\Trade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="connectDeribitForm.resx">

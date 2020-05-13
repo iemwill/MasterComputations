@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -230,7 +229,7 @@ namespace MasterComputations.Data
                 {
                     foreach (var y in x)
                     {
-                        check+=1;
+                        check += 1;
                     }
                     if (x.Name == "volume")
                     {
@@ -274,6 +273,35 @@ namespace MasterComputations.Data
             else
                 toAdd.status = "no_data";
             return toAdd;
+        }
+        public static List<Trade> tradesByInst(dynamic input)
+        {
+            var retval = new List<Trade>();
+
+            foreach (var x in input.trades)
+            {
+                var toAdd = new Trade();
+                toAdd.direction = x.direction;
+                toAdd.implied_volatility = x.iv;
+                toAdd.index_price = x.index_price;
+                toAdd.instrument_name = x.instrument_name;
+                try
+                {
+                    toAdd.liquidatation = x.liquidatation;
+                }
+                catch
+                {
+                    continue;
+                }
+                toAdd.amount = x.amount;
+                toAdd.price = x.price;
+                toAdd.tick_direction = x.tick_direction;
+                toAdd.timestamp = x.timestamp;
+                toAdd.trade_id = x.trade_id;
+                toAdd.trade_seq = x.trade_seq;
+                retval.Add(toAdd);
+            }
+            return retval;
         }
     }
 }
