@@ -23,7 +23,7 @@ namespace MasterComputations
             InitializeComponent();
             var startTime = dateTimeToUnix(new DateTime(2019, 11, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
             var endTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            var check = API.Deribit.getTradesByInstrumentWA("BTC-25SEP20-10000-C", startTime, endTime, true, 1000);
+            var check = API.Deribit.getTradesByInstrumentWA("BTC-25SEP20-12500-C", startTime, endTime, true, 1000);
         }
         private void button1_Click(object sender, EventArgs e)
         {
