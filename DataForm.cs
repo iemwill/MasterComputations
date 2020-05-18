@@ -15,14 +15,12 @@ namespace MasterComputations
         public List<Currency> currencies;
         public List<Instrument> activeOptionsBTC;
         public List<Instrument> inactiveOptionsBTC;
-        public List<Tuple<long, double>> historicalVolatilityBTC; // toSave!
-        public Dictionary<string, ChartData> chartData;
         public DataForm()
         {
             InitializeComponent();
-            //var startTime = dateTimeToUnix(new DateTime(2019, 11, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //var endTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //var check = API.Deribit.getTradesByInstrumentWA("BTC-25SEP20-12000-C", startTime, endTime, true, 1000);
+            var startTime = Helper.dateTimeToUnix(new DateTime(2018, 05, 16, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            var endTime = Helper.dateTimeToUnix(new DateTime(2018, 07, 15, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            var check = API.Deribit.getTradesByInstrumentWA("BTC-29JUN18-9500-C", startTime, endTime, true, 1000);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -111,53 +109,10 @@ namespace MasterComputations
             currencies = API.Deribit.getCurrencies();
             activeOptionsBTC = API.Deribit.getInstrumentsWA("BTC", "option", false);
             inactiveOptionsBTC = API.Deribit.getInstrumentsWA("BTC", "option", true);
-            //fill current Orderbook.
-            //orderBook = new Dictionary<string, List<Book>>();
-            //foreach (var x in activeOptionsBTC)
-            //    orderBook.Add(x.instrument_name, API.Deribit.getBook(x.instrument_name));
 
             Save.currencies(currencies);
             Save.activeOptionsBTC(activeOptionsBTC);
             Save.inactiveOptionsBTC(inactiveOptionsBTC);
-
-            //historicalVolatilityBTC = API.Deribit.getHistVol();
-
-            //chart data
-            //chartData = new Dictionary<string, ChartData>();
-            //foreach (var x in activeOptionsBTC)
-            //{
-            //    orderBook[x.instrument_name].Add(API.Deribit.getTicker(x.instrument_name));
-            //    chartData.Add(
-            //        x.instrument_name, API.Deribit.getChartDataWA(
-            //            x.instrument_name,
-            //            dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime()),
-            //            dateTimeToUnix(new DateTime(2020, 05, 2, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime()),
-            //            "1D"
-            //    ));
-            //}
-
-            //foreach (var x in activeOptionsBTC)
-            //{
-            //    //var startTime = dateTimeToUnix(new DateTime(2018, 05, 16, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //    //var endTime = dateTimeToUnix(new DateTime(2018, 07, 15, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //    var startTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //    var endTime = dateTimeToUnix(new DateTime(2020, 05, 11, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            //    if (x.creation_timestamp < endTime && x.expiration_timestamp > startTime)
-            //    {
-            //        ChartData toAdd = API.Deribit.getChartDataWA(
-            //            x.instrument_name,
-            //            startTime,
-            //            endTime,
-            //            "1D"
-            //        );
-            //        if (toAdd.status != "no_data")
-            //            chartData.Add(x.instrument_name, toAdd);
-            //        else
-            //            noData += 1;
-            //    }
-            //}
-            //Save.book(orderBook);
-            //Save.chartData(chartData);
         }
         private void fillGrid(List<Instrument> input)
         {
@@ -294,8 +249,8 @@ namespace MasterComputations
                 Position = AxisPosition.Bottom,
                 Title = "Time",
                 IntervalType = DateTimeIntervalType.Days,
-                Minimum = DateTimeAxis.ToDouble(Helper.unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(Helper.unixToDateTime(maxDateTime / 1000)),
+                Minimum = DateTimeAxis.ToDouble((new DateTime(2018, 05, 16, 11, 0, 0, DateTimeKind.Utc))),
+                Maximum = DateTimeAxis.ToDouble((new DateTime(2018, 07, 15, 11, 0, 0, DateTimeKind.Utc)))
             });
             foreach (var x in input)
                 if (x.option_type == "call")
@@ -361,7 +316,6 @@ namespace MasterComputations
             model.Series.Add(lineserieCall2);
             this.plotView1.Model = model;
         }
-
     }
 }
 //connection Form to deribit private API

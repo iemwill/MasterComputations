@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOPdataV", "BOPdataV.csproj", "{A7F328D6-2B63-454F-8BE7-DCF9C0416324}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MCsetup", "MCone\MCsetup\MCsetup.vdproj", "{6EE7890E-EF60-44A7-8270-22D2E5BCD49C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOP", "BOP.csproj", "{A7F328D6-2B63-454F-8BE7-DCF9C0416324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +15,6 @@ Global
 		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F328D6-2B63-454F-8BE7-DCF9C0416324}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6EE7890E-EF60-44A7-8270-22D2E5BCD49C}.Debug|Any CPU.ActiveCfg = Debug
-		{6EE7890E-EF60-44A7-8270-22D2E5BCD49C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
