@@ -1,6 +1,6 @@
 ﻿namespace MasterComputations
 {
-    partial class BaseForm
+    partial class DataForm
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataForm));
             this.parseCSV = new System.Windows.Forms.Button();
             this.showInactive = new System.Windows.Forms.Button();
             this.publicAPIderibit = new System.Windows.Forms.Button();

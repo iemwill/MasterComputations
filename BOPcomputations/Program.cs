@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MasterComputations
+namespace BOPcomputations
 {
     static class Program
     {
@@ -13,7 +16,7 @@ namespace MasterComputations
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataForm());
+            Application.Run(new computationForm());
         }
     }
 }
