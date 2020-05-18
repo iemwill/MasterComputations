@@ -68,6 +68,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Option.cs" />
+    <Compile Include="computationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="computationForm.Designer.cs">
+      <DependentUpon>computationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Computations\FirstLayer.cs" />
+    <Compile Include="Computations\Helper.cs" />
+    <Compile Include="Computations\NeuralNetwork.cs" />
+    <Compile Include="Computations\SecondLayer.cs" />
     <Compile Include="Data\API.cs" />
     <Compile Include="connectDeribitForm.cs">
       <SubType>Form</SubType>
@@ -75,27 +86,32 @@
     <Compile Include="connectDeribitForm.Designer.cs">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Book.cs" />
-    <Compile Include="Data\ChartData.cs" />
-    <Compile Include="Data\Currency.cs" />
-    <Compile Include="Data\Instrument.cs" />
+    <Compile Include="Classes\Book.cs" />
+    <Compile Include="Classes\ChartData.cs" />
+    <Compile Include="Classes\Currency.cs" />
+    <Compile Include="Classes\Instrument.cs" />
     <Compile Include="Data\Load.cs" />
     <Compile Include="Data\Parse.cs" />
-    <Compile Include="BaseForm.cs">
+    <Compile Include="DataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm.Designer.cs">
-      <DependentUpon>BaseForm.cs</DependentUpon>
+    <Compile Include="DataForm.Designer.cs">
+      <DependentUpon>DataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Save.cs" />
-    <Compile Include="Data\Trade.cs" />
+    <Compile Include="Classes\Trade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visualization\Grid.cs" />
+    <Compile Include="Visualization\Plot.cs" />
+    <EmbeddedResource Include="computationForm.resx">
+      <DependentUpon>computationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="connectDeribitForm.resx">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BaseForm.resx">
-      <DependentUpon>BaseForm.cs</DependentUpon>
+    <EmbeddedResource Include="DataForm.resx">
+      <DependentUpon>DataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,5 +137,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

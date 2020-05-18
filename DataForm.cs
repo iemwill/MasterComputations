@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using MasterComputations.Computations;
 using MasterComputations.Data;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -9,21 +10,19 @@ using OxyPlot.Series;
 
 namespace MasterComputations
 {
-    public partial class BaseForm : Form
+    public partial class DataForm : Form
     {
         public List<Currency> currencies;
         public List<Instrument> activeOptionsBTC;
         public List<Instrument> inactiveOptionsBTC;
         public List<Tuple<long, double>> historicalVolatilityBTC; // toSave!
-        public Dictionary<string, List<Book>> orderBook;  //toSave?
         public Dictionary<string, ChartData> chartData;
-        //int noData= 0;
-        public BaseForm()
+        public DataForm()
         {
             InitializeComponent();
-            var startTime = dateTimeToUnix(new DateTime(2019, 11, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            var endTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
-            var check = API.Deribit.getTradesByInstrumentWA("BTC-25SEP20-12500-C", startTime, endTime, true, 1000);
+            //var startTime = dateTimeToUnix(new DateTime(2019, 11, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //var endTime = dateTimeToUnix(new DateTime(2020, 05, 1, 11, 0, 0, DateTimeKind.Utc).ToUniversalTime());
+            //var check = API.Deribit.getTradesByInstrumentWA("BTC-25SEP20-12000-C", startTime, endTime, true, 1000);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -66,8 +65,8 @@ namespace MasterComputations
                         toAdd.settlement_period = x.Cells[1].FormattedValue.ToString();
                         toAdd.strike = Convert.ToDouble(x.Cells[2].FormattedValue);
                         toAdd.instrument_name = x.Cells[3].FormattedValue.ToString();
-                        toAdd.creation_timestamp = dateTimeToUnix(Convert.ToDateTime(x.Cells[4].FormattedValue));
-                        toAdd.expiration_timestamp = dateTimeToUnix(Convert.ToDateTime(x.Cells[5].FormattedValue));
+                        toAdd.creation_timestamp = Helper.dateTimeToUnix(Convert.ToDateTime(x.Cells[4].FormattedValue));
+                        toAdd.expiration_timestamp = Helper.dateTimeToUnix(Convert.ToDateTime(x.Cells[5].FormattedValue));
                         toAdd.base_currency = x.Cells[6].FormattedValue.ToString();
                         toAdd.quote_currency = x.Cells[7].FormattedValue.ToString();
                         //toAdd.maker_commission = Convert.ToInt64(x.Cells[8].FormattedValue);
@@ -193,10 +192,10 @@ namespace MasterComputations
                     one.Value = x.instrument_name;
                     tempRow.Cells.Add(one);
                     DataGridViewCell two = new DataGridViewTextBoxCell();
-                    two.Value = unixToDateTime(x.creation_timestamp / 1000).ToShortDateString();
+                    two.Value = Helper.unixToDateTime(x.creation_timestamp / 1000).ToShortDateString();
                     tempRow.Cells.Add(two);
                     DataGridViewCell three = new DataGridViewTextBoxCell();
-                    three.Value = unixToDateTime(x.expiration_timestamp / 1000).ToShortDateString();
+                    three.Value = Helper.unixToDateTime(x.expiration_timestamp / 1000).ToShortDateString();
                     tempRow.Cells.Add(three);
                     DataGridViewCell four = new DataGridViewTextBoxCell();
                     four.Value = x.base_currency;
@@ -239,8 +238,8 @@ namespace MasterComputations
                 Position = AxisPosition.Bottom,
                 Title = "Time",
                 IntervalType = DateTimeIntervalType.Days,
-                Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(unixToDateTime(maxDateTime / 1000)),
+                Minimum = DateTimeAxis.ToDouble(Helper.unixToDateTime(minDateTime / 1000)),
+                Maximum = DateTimeAxis.ToDouble(Helper.unixToDateTime(maxDateTime / 1000)),
             });
             LineSeries lineserieCall = new LineSeries
             {
@@ -268,9 +267,9 @@ namespace MasterComputations
             };
             foreach (var x in input)
                 if (x.option_type == "call")
-                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.creation_timestamp / 1000)), x.strike));
                 else
-                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.creation_timestamp / 1000)), x.strike));
 
             model.Series.Add(lineserieCall);
             model.Series.Add(lineseriePut);
@@ -295,8 +294,8 @@ namespace MasterComputations
                 Position = AxisPosition.Bottom,
                 Title = "Time",
                 IntervalType = DateTimeIntervalType.Days,
-                Minimum = DateTimeAxis.ToDouble(unixToDateTime(minDateTime / 1000)),
-                Maximum = DateTimeAxis.ToDouble(unixToDateTime(maxDateTime / 1000)),
+                Minimum = DateTimeAxis.ToDouble(Helper.unixToDateTime(minDateTime / 1000)),
+                Maximum = DateTimeAxis.ToDouble(Helper.unixToDateTime(maxDateTime / 1000)),
             });
             foreach (var x in input)
                 if (x.option_type == "call")
@@ -313,8 +312,8 @@ namespace MasterComputations
                         Color = OxyColors.Black,
                         MarkerType = MarkerType.Cross,
                     };
-                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
-                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineserieCall.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
                     model.Series.Add(lineserieCall);
                 }
                 else
@@ -329,8 +328,8 @@ namespace MasterComputations
                         Color = OxyColors.Red,
                         MarkerType = MarkerType.Circle,
                     };
-                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.creation_timestamp / 1000)), x.strike));
-                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.creation_timestamp / 1000)), x.strike));
+                    lineseriePut.Points.Add(new DataPoint(DateTimeAxis.ToDouble(Helper.unixToDateTime(x.expiration_timestamp / 1000)), x.strike));
                     model.Series.Add(lineseriePut);
                 }
             // Add empty lineseries for Legend.
@@ -362,20 +361,7 @@ namespace MasterComputations
             model.Series.Add(lineserieCall2);
             this.plotView1.Model = model;
         }
-        public DateTime unixToDateTime(long unixTimeStamp)
-        {
-            // Unix timestamp is seconds past epoch
-            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dtDateTime;
-        }
-        public long dateTimeToUnix(DateTime dt)
-        {
-            // Unix timestamp is seconds past epoch
-            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            var unix = (dt.ToUniversalTime() - dtDateTime);
-            return Convert.ToInt64(unix.TotalMilliseconds);
-        }
+
     }
 }
 //connection Form to deribit private API
