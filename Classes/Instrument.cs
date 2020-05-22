@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using MasterComputations.Classes;
+using ProtoBuf;
 using System;
 using System.Collections.Generic;
 
@@ -26,7 +27,7 @@ namespace MasterComputations.Data
         [ProtoMember(9)]
         public string kind { get; set; }
         [ProtoMember(10)]
-        public bool? is_active { get; set; }
+        public bool is_active { get; set; }
         [ProtoMember(11)]
         public string instrument_name { get; set; }
         [ProtoMember(12)]
@@ -52,13 +53,10 @@ namespace MasterComputations.Data
 
         public static Tuple<long, long> getMinMax(List<Instrument> optionsBTC)
         {
-            var inactive = new List<Instrument>();
             var minDateTime = long.MaxValue;
             var maxDateTime = long.MinValue;
             foreach (var x in optionsBTC)
             {
-                if (x.is_active == false)
-                    inactive.Add(x);
                 if (x.creation_timestamp < minDateTime)
                     minDateTime = x.creation_timestamp;
                 if (x.expiration_timestamp > maxDateTime)

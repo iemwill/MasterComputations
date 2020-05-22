@@ -95,7 +95,7 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.chartData(res);
             }
-            public static List<Trade> getTradesByInstrumentWA(string name, long start, long end, bool includeOld, int count)
+            public static List<Trade> getTradesByInstrumentWA(string name, Int64 start, Int64 end, bool includeOld, int count)
             {
                 var encoding = Encoding.UTF8;
                 var urlForAuth = @"https://www.deribit.com/api/v2/public/get_last_trades_by_instrument_and_time"
