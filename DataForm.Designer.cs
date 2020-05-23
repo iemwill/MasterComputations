@@ -99,7 +99,7 @@
             this.selectedOptions.Name = "selectedOptions";
             this.selectedOptions.Size = new System.Drawing.Size(140, 33);
             this.selectedOptions.TabIndex = 2;
-            this.selectedOptions.Text = "PLOT SELECTED OPTIONS";
+            this.selectedOptions.Text = "PLOT MARKED OPTION";
             this.selectedOptions.UseVisualStyleBackColor = true;
             this.selectedOptions.Click += new System.EventHandler(this.plotSelected_Click);
             // 
@@ -201,9 +201,9 @@
             this.drawInactiveND.Name = "drawInactiveND";
             this.drawInactiveND.Size = new System.Drawing.Size(158, 33);
             this.drawInactiveND.TabIndex = 2;
-            this.drawInactiveND.Text = "SHOW NO DURATION";
+            this.drawInactiveND.Text = "GET NEW DATA";
             this.drawInactiveND.UseVisualStyleBackColor = true;
-            this.drawInactiveND.Click += new System.EventHandler(this.drawInactiveND_Click);
+            this.drawInactiveND.Click += new System.EventHandler(this.newData_Click);
             // 
             // splitContainer6
             // 

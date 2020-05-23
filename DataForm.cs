@@ -2,56 +2,124 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MasterComputations.Classes;
+using MasterComputations.Computations;
 using MasterComputations.Data;
 using MasterComputations.Visualization;
-using OxyPlot;
 
 namespace MasterComputations
 {
     public partial class DataForm : Form
     {
-        public List<Currency> currencies;
+        public List<Data.Currency> currencies;
+        public Dictionary<string, Option> btcOptions;
+
         public List<Option> activeOptionsBTC;
         public List<Option> inactiveOptionsBTC;
         public List<Option> options2019;
-        public Dictionary<string, Option> btcOptions;
+        public int options2019TradesCount;
         public List<Option> mostTraded;
 
         public DataForm()
         {
             InitializeComponent();
             btcOptions = new Dictionary<string, Option>(); activeOptionsBTC = new List<Option>(); inactiveOptionsBTC = new List<Option>();
-            try
-            {
-                var data = Data.Load.localPublicAPI();
-                btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
-                loadGridAndPlotData();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show("Get new online data failed caused by no internetconnection, gonna load data from directory. \n" +
-                    err.Message);
-                var data = Data.Load.localPublicAPI();
-                btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
-                loadGridAndPlotData();
-            }
+            var data = Data.Load.localPublicAPI();
+            btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
+            initData();
+            updateData();
+            showData();
         }
 
-        private void loadGridAndPlotData()
+        private void initData()
         {
             try
             {
-                var checkk = new List<Option>();
-                //active
-                foreach (var x in activeOptionsBTC)
-                    if (x.trades.Count == 1000 && checkk.Count <= 5)
-                        checkk.Add(x);
-                //inactive
-                //foreach (var x in inactiveOptionsBTC)
-                //    if (x.trades.Count == 1000 && checkk.Count <= 5)
-                //        checkk.Add(x);
-
-                plotView1.Model = Plot.option(checkk);
+                options2019 = new List<Option>();
+                options2019TradesCount = 0;
+                //fill options2019
+                foreach (var x in inactiveOptionsBTC)
+                {
+                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2019, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
+                        x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2019, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
+                    {
+                        options2019.Add(x);
+                        options2019TradesCount += x.trades.Count;
+                        if (x.trades.Count == 1000)
+                        {
+                            var period = x.raw.expiration_timestamp - x.raw.creation_timestamp;
+                            var intervalDays = Convert.ToInt32(period / (60 * 60 * 24 * 1000));
+                            List<Option> moreData = new List<Option>();
+                            var newDataCount = 0;
+                            for (var i = 0; i < intervalDays; i++)
+                            {
+                                var moreDoption = new Option();
+                                long start = x.raw.creation_timestamp;
+                                long end = x.raw.creation_timestamp + i * (60 * 60 * 24 * 1000);//(x.raw.creation_timestamp / 1000) + (x.raw.expiration_timestamp / 1000 - x.raw.creation_timestamp / 1000) / 2;
+                                moreDoption.trades = API.Deribit.getTradesByInstrumentWA(x.raw.instrument_name, start, end, true, 1000);
+                                moreDoption.start = Helper.unixToDateTime(x.raw.creation_timestamp / 1000);
+                                moreDoption.end = Helper.unixToDateTime(x.raw.expiration_timestamp / 1000);
+                                newDataCount += moreDoption.trades.Count;
+                                moreData.Add(moreDoption);
+                            }
+                            var filteredTrades = new List<Trade>();
+                            foreach (var yes in x.trades)
+                                filteredTrades.Add(yes);
+                            foreach (var opt in moreData)
+                                foreach (var tr in opt.trades)
+                                    if (!filteredTrades.Contains(tr))
+                                        filteredTrades.Add(tr);
+                            btcOptions[x.name].trades = filteredTrades;
+                        }
+                    }
+                }
+                Save.options(btcOptions);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+        private void updateData()
+        {
+            try
+            {
+                activeOptionsBTC = new List<Option>();
+                inactiveOptionsBTC = new List<Option>();
+                options2019 = new List<Option>();
+                options2019TradesCount = 0;
+                mostTraded = new List<Option>();
+                //fill options2019
+                foreach (var x in btcOptions.Values)
+                {
+                    if (x.active)
+                        activeOptionsBTC.Add(x);
+                    else
+                        inactiveOptionsBTC.Add(x);
+                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2019, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
+                                 x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2019, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
+                    {
+                        options2019.Add(x);
+                        options2019TradesCount += x.trades.Count;
+                    }
+                    if (x.trades.Count >= 5000)
+                        mostTraded.Add(x);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+        private void showData()
+        {
+            try
+            {
+                //plotList
+                var plotta = new List<Option>();
+                foreach (var x in options2019)
+                    if (x.trades.Count >= 5000 && plotta.Count <= 5)
+                        plotta.Add(x);
+                plotView1.Model = Plot.option(plotta);
 
                 dataGridView1.ColumnCount = 11;
                 dataGridView1.Columns[0].Name = "option type";
@@ -67,7 +135,7 @@ namespace MasterComputations
                 dataGridView1.Columns[10].Name = "taker comission";
 
                 dataGridView1.Rows.Clear();
-                var check = Grid.options(activeOptionsBTC);
+                var check = Grid.options(options2019);
                 foreach (var x in check)
                     this.dataGridView1.Rows.Add(x);
 
@@ -80,7 +148,7 @@ namespace MasterComputations
                 dataGridView2.Columns[5].Name = "period";
 
                 dataGridView2.Rows.Clear();
-                var check2 = Grid.trades(checkk[0]);
+                var check2 = Grid.trades(options2019[0]);
                 foreach (var x in check2)
                     this.dataGridView2.Rows.Add(x);
             }
@@ -158,11 +226,13 @@ namespace MasterComputations
                 MessageBox.Show(err.Message);
             }
         }
-        private void drawInactiveND_Click(object sender, EventArgs e)
+        private void newData_Click(object sender, EventArgs e)
         {
             try
             {
-
+                MessageBox.Show("Since we gonna get trades for over 10 options traded from 2017 until today this step will take +- 10 min.");
+                var data = Data.Load.onlinePublicAPI();
+                btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
             catch (Exception err)
             {

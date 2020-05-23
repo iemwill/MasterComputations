@@ -22,6 +22,32 @@ namespace MasterComputations.Data
                 var add = new Option();
                 add.raw = x;
                 add.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, x.creation_timestamp, x.expiration_timestamp, true, 1000);
+                if (add.trades.Count == 1000)
+                {
+                        var period = x.expiration_timestamp - x.creation_timestamp;
+                        var intervalDays = Convert.ToInt32(period / (60 * 60 * 24 * 1000));
+                        List<Option> moreData = new List<Option>();
+                        var newDataCount = 0;
+                        for (var i = 0; i < intervalDays; i++)
+                        {
+                            var moreDoption = new Option();
+                            long start = x.creation_timestamp;
+                            long end = x.creation_timestamp + i * (60 * 60 * 24 * 1000);//(x.raw.creation_timestamp / 1000) + (x.raw.expiration_timestamp / 1000 - x.raw.creation_timestamp / 1000) / 2;
+                            moreDoption.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, start, end, true, 1000);
+                            moreDoption.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
+                            moreDoption.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
+                            newDataCount += moreDoption.trades.Count;
+                            moreData.Add(moreDoption);
+                        }
+                        var filteredTrades = new List<Trade>();
+                        foreach (var yes in add.trades)
+                            filteredTrades.Add(yes);
+                        foreach (var opt in moreData)
+                            foreach (var tr in opt.trades)
+                                if (!filteredTrades.Contains(tr))
+                                    filteredTrades.Add(tr);
+                        add.trades = filteredTrades;
+                }
                 add.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
                 add.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
                 add.active = x.is_active;
@@ -36,6 +62,32 @@ namespace MasterComputations.Data
                     var add = new Option();
                     add.raw = x;
                     add.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, x.creation_timestamp, x.expiration_timestamp, true, 1000);
+                    if (add.trades.Count == 1000)
+                    {
+                        var period = x.expiration_timestamp - x.creation_timestamp;
+                        var intervalDays = Convert.ToInt32(period / (60 * 60 * 24 * 1000));
+                        List<Option> moreData = new List<Option>();
+                        var newDataCount = 0;
+                        for (var i = 0; i < intervalDays; i++)
+                        {
+                            var moreDoption = new Option();
+                            long start = x.creation_timestamp;
+                            long end = x.creation_timestamp + i * (60 * 60 * 24 * 1000);//(x.raw.creation_timestamp / 1000) + (x.raw.expiration_timestamp / 1000 - x.raw.creation_timestamp / 1000) / 2;
+                            moreDoption.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, start, end, true, 1000);
+                            moreDoption.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
+                            moreDoption.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
+                            newDataCount += moreDoption.trades.Count;
+                            moreData.Add(moreDoption);
+                        }
+                        var filteredTrades = new List<Trade>();
+                        foreach (var yes in add.trades)
+                            filteredTrades.Add(yes);
+                        foreach (var opt in moreData)
+                            foreach (var tr in opt.trades)
+                                if (!filteredTrades.Contains(tr))
+                                    filteredTrades.Add(tr);
+                        add.trades = filteredTrades;
+                    }
                     add.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
                     add.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
                     add.active = x.is_active;

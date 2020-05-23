@@ -16,7 +16,7 @@ namespace MasterComputations.Computations
             // Unix timestamp is seconds past epoch
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             var unix = (dt.ToUniversalTime() - dtDateTime);
-            return Convert.ToInt64(unix.TotalMilliseconds);
+            return Convert.ToInt64(unix.TotalSeconds);
         }
     }
 }
