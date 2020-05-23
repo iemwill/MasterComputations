@@ -19,10 +19,12 @@ namespace MasterComputations.Visualization
                 foreach (var x in input)
                 {//add code here for adding rows to dataGridviewFiles
                     DataGridViewRow tempRow = new DataGridViewRow();
-
                     DataGridViewCell cellFileName = new DataGridViewTextBoxCell();
                     cellFileName.Value = x.raw.option_type;
                     tempRow.Cells.Add(cellFileName);
+                    DataGridViewCell cellFileName1 = new DataGridViewTextBoxCell();
+                    cellFileName1.Value = x.trades.Count;
+                    tempRow.Cells.Add(cellFileName1);
                     DataGridViewCell cellDocCount = new DataGridViewTextBoxCell();
                     cellDocCount.Value = x.raw.settlement_period;
                     tempRow.Cells.Add(cellDocCount);
@@ -50,7 +52,6 @@ namespace MasterComputations.Visualization
                     DataGridViewCell dd = new DataGridViewTextBoxCell();
                     dd.Value = x.raw.taker_commission;
                     tempRow.Cells.Add(dd);
-
                     tempRow.Tag = x.raw.is_active;
                     check.Add(tempRow);
                 }
@@ -58,7 +59,7 @@ namespace MasterComputations.Visualization
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error in Plot.grid(List<Option>). \n", e.Message);
+                MessageBox.Show("Error in Grid.options(List<Option>). \n", e.Message);
                 throw;
             }
         }
@@ -71,28 +72,32 @@ namespace MasterComputations.Visualization
                 foreach (var x in input.trades)
                 {//add code here for adding rows to dataGridviewFiles
                     DataGridViewRow tempRow = new DataGridViewRow();
-
                     DataGridViewCell cellFileName = new DataGridViewTextBoxCell();
                     cellFileName.Value = x.direction;
                     tempRow.Cells.Add(cellFileName);
                     DataGridViewCell cellFileName2 = new DataGridViewTextBoxCell();
-                    cellFileName2.Value = x.amount * x.index_price * x.price;
+                    cellFileName2.Value = x.index_price * x.price;
                     tempRow.Cells.Add(cellFileName2);
                     DataGridViewCell cellFileName3 = new DataGridViewTextBoxCell();
-                    cellFileName3.Value = Helper.unixToDateTime(x.timestamp / 1000).ToShortDateString();
+                    cellFileName3.Value = x.amount;
                     tempRow.Cells.Add(cellFileName3);
                     DataGridViewCell cellFileName4 = new DataGridViewTextBoxCell();
-                    cellFileName4.Value = x.implied_volatility;
+                    cellFileName4.Value = Helper.unixToDateTime(x.timestamp / 1000).ToShortDateString();
                     tempRow.Cells.Add(cellFileName4);
+                    DataGridViewCell cellFileName5 = new DataGridViewTextBoxCell();
+                    cellFileName5.Value = x.implied_volatility;
+                    tempRow.Cells.Add(cellFileName5);
+                    DataGridViewCell cellFileName6 = new DataGridViewTextBoxCell();
+                    cellFileName6.Value = input.raw.settlement_period;
+                    tempRow.Cells.Add(cellFileName6);
                     tempRow.Tag = input.active;
-
                     check.Add(tempRow);
                 }
                 return check;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error in Plot.grid(Option). \n", e.Message);
+                MessageBox.Show("Error in Grid.trades(Option). \n", e.Message);
                 throw;
             }
         }

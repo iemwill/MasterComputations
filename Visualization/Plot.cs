@@ -12,14 +12,10 @@ namespace MasterComputations.Visualization
 {
     public class Plot
     {
-        public static PlotModel option(List<Option> _input)
+        public static PlotModel option(List<Option> input)
         {
             try
             {
-                var input = new List<Option>();
-                foreach (var x in _input)
-                    if (!(x.trades.Count < 555))
-                        input.Add(x);
                 var minmax = Option.getDateEx(input);
                 PlotModel model = new PlotModel
                 {
@@ -64,8 +60,8 @@ namespace MasterComputations.Visualization
                             StrokeThickness = 2,
                             MarkerStrokeThickness = 2,
                             MarkerSize = 4,
-                            MarkerStroke = OxyColors.Black,
-                            LineStyle = LineStyle.None,
+                            MarkerStroke = OxyColors.Gold,
+                            LineStyle = LineStyle.Solid,
                             Color = OxyColors.Black,
                             MarkerType = MarkerType.Plus,
                         };
@@ -96,9 +92,9 @@ namespace MasterComputations.Visualization
                             StrokeThickness = 2,
                             MarkerStrokeThickness = 2,
                             MarkerSize = 4,
-                            MarkerStroke = OxyColors.Black,
-                            LineStyle = LineStyle.None,
-                            Color = OxyColors.Black,
+                            MarkerStroke = OxyColors.Gold,
+                            LineStyle = LineStyle.Solid,
+                            Color = OxyColors.Red,
                             MarkerType = MarkerType.Plus,
                         };
                         foreach (var y in x.trades)
@@ -114,6 +110,17 @@ namespace MasterComputations.Visualization
                         model.Series.Add(lineseriePutTrades);
                     }
                 // Add empty lineseries for Legend.
+                LineSeries trade = new LineSeries
+                {
+                    Title = "Trade",
+                    DataFieldX = "x",
+                    DataFieldY = "Y",
+                    StrokeThickness = 2,
+                    MarkerSize = 2,
+                    MarkerStroke = OxyColors.Gold,
+                    LineStyle = LineStyle.None,
+                    MarkerType = MarkerType.Plus,
+                };
                 LineSeries lineseriePut2 = new LineSeries
                 {
                     Title = "Put",
@@ -139,6 +146,7 @@ namespace MasterComputations.Visualization
                     Color = OxyColors.Black,
                     MarkerType = MarkerType.Cross,
                 };
+                model.Series.Add(trade);
                 model.Series.Add(lineseriePut2);
                 model.Series.Add(lineserieCall2);
                 return model;

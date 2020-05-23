@@ -10,13 +10,13 @@ namespace MasterComputations.Data
 {
     public class Load
     {
-        public static Tuple<List<Option>, List<Option>, List<Option>, List<Currency>> onlinePublicAPI()
+        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> onlinePublicAPI(bool justActive=false)
         {
-            var btcOptions = new List<Option>();
+            var btcOptions = new Dictionary<string, Option>();
             //Get supported currencies and options for BTC
             var currencies = API.Deribit.getCurrencies();
             var activeRaw = API.Deribit.getInstrumentsWA("BTC", "option", false);
-            var inactiveRaw = API.Deribit.getInstrumentsWA("BTC", "option", true);
+
             foreach (var x in activeRaw)
             {
                 var add = new Option();
@@ -26,56 +26,55 @@ namespace MasterComputations.Data
                 add.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
                 add.active = x.is_active;
                 add.name = x.instrument_name;
-                btcOptions.Add(add);
+                btcOptions.Add(add.name, add);
             }
-            foreach (var x in inactiveRaw)
+            if (!justActive)
             {
-                var add = new Option();
-                add.raw = x;
-                add.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, x.creation_timestamp, x.expiration_timestamp, true, 1000);
-                add.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
-                add.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
-                add.active = x.is_active;
-                add.name = x.instrument_name;
-                btcOptions.Add(add);
+                var inactiveRaw = API.Deribit.getInstrumentsWA("BTC", "option", true);
+                foreach (var x in inactiveRaw)
+                {
+                    var add = new Option();
+                    add.raw = x;
+                    add.trades = API.Deribit.getTradesByInstrumentWA(x.instrument_name, x.creation_timestamp, x.expiration_timestamp, true, 1000);
+                    add.start = Helper.unixToDateTime(x.creation_timestamp / 1000);
+                    add.end = Helper.unixToDateTime(x.expiration_timestamp / 1000);
+                    add.active = x.is_active;
+                    add.name = x.instrument_name;
+                    btcOptions.Add(add.name, add);
+                }
             }
-
             Save.currencies(currencies);
             Save.options(btcOptions);
             var inactive = new List<Option>(); var active = new List<Option>();
-            foreach (var x in btcOptions)
+            foreach (var x in btcOptions.Values)
                 if (x.active)
                     active.Add(x);
                 else
                     inactive.Add(x);
-            return new Tuple<List<Option>, List<Option>, List<Option>, List<Currency>>(btcOptions, active, inactive, currencies);
+            return new Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>>(btcOptions, active, inactive, currencies);
         }
-        public static Tuple<List<Option>, List<Option>, List<Option>, List<Currency>> localPublicAPI()
+        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> localPublicAPI()
         {
             var path = Application.StartupPath + "\\data\\bitcoin.options";
-            List<Option> all = new List<Option>();
+            Dictionary<string, Option> all = new Dictionary<string, Option>();
             using (var fs = File.OpenRead(path))
-                all = Serializer.Deserialize<List<Option>>(fs);
+                all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
             var inactive = new List<Option>();
             var active = new List<Option>();
             var curr = currencies();
-
-            foreach (var x in all)
+            foreach (var x in all.Values)
                 if (x.active)
                     active.Add(x);
                 else
                     inactive.Add(x);
-
-            return new Tuple<List<Option>, List<Option>, List<Option>, List<Currency>>(all, active, inactive, curr);
+            return new Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>>(all, active, inactive, curr);
         }
         private static List<Currency> currencies()
         {
-
             var path = Application.StartupPath + "\\data\\currencies.deribit";
             List<Currency> currencies = new List<Currency>();
             using (var fs = File.OpenRead(path))
                 currencies = Serializer.Deserialize<List<Currency>>(fs);
-
             return currencies;
         }
 

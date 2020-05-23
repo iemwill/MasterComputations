@@ -9,7 +9,7 @@ namespace MasterComputations.Data
 {
     public class Save
     {
-        public static bool options(List<Option> input)
+        public static bool options(Dictionary<string, Option> input)
         {
             try
             {
