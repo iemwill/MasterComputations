@@ -63,7 +63,6 @@ namespace MasterComputations.Visualization
                 throw;
             }
         }
-
         public static List<DataGridViewRow> trades(Option input)
         {
             try

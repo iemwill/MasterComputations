@@ -12,7 +12,7 @@ namespace MasterComputations.Computations
         {
 
         }
-        public void monteCarloSimulation()
+        public void monteCarloSimulation(int simulationSize)
         {
 
         }

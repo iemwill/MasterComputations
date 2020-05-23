@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using MasterComputations.Classes;
 using MasterComputations.Computations;
@@ -55,11 +57,14 @@ namespace MasterComputations
                                 var moreDoption = new Option();
                                 long start = x.raw.creation_timestamp;
                                 long end = x.raw.creation_timestamp + i * (60 * 60 * 24 * 1000);//(x.raw.creation_timestamp / 1000) + (x.raw.expiration_timestamp / 1000 - x.raw.creation_timestamp / 1000) / 2;
-                                moreDoption.trades = API.Deribit.getTradesByInstrumentWA(x.raw.instrument_name, start, end, true, 1000);
+                                var trad = API.Deribit.getTradesByInstrumentWA(x.raw.instrument_name, start, end, true, 1000);
+                                foreach (var t in trad)
+                                    if (!moreDoption.trades.Contains(t))
+                                        moreDoption.trades.Add(t);
                                 moreDoption.start = Helper.unixToDateTime(x.raw.creation_timestamp / 1000);
                                 moreDoption.end = Helper.unixToDateTime(x.raw.expiration_timestamp / 1000);
                                 newDataCount += moreDoption.trades.Count;
-                                moreData.Add(moreDoption);
+                                moreData.Add(moreDoption); ;
                             }
                             var filteredTrades = new List<Trade>();
                             foreach (var yes in x.trades)
