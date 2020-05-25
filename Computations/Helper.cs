@@ -4,6 +4,9 @@ namespace MasterComputations.Computations
 {
     public class Helper
     {
+        //
+
+        //Dates
         public static DateTime unixToDateTime(long unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch

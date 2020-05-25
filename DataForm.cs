@@ -20,7 +20,7 @@ namespace MasterComputations
         public List<Option> options2019;
         public int options2019TradesCount;
         public List<Option> mostTraded;
-
+        //"BTC-27DEC19-7750-C"
         public DataForm()
         {
             InitializeComponent();
@@ -224,7 +224,6 @@ namespace MasterComputations
                     foreach (var x in check4)
                         this.dataGridView2.Rows.Add(x);
                 }
-
             }
             catch (Exception err)
             {

@@ -1,10 +1,14 @@
 ﻿
 
+using MasterComputations.Data;
+using Org.OpenAPITools.Model;
+using System.Collections.Generic;
+
 namespace MasterComputations.Computations
 {
     public class FirstLayer
     {
-        public void trinominialTree()
+        public void trinominialTree(List<Trade> trades)
         {
 
         }
