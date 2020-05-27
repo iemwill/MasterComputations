@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MasterComputations.Classes;
+using MasterComputations.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,11 +24,21 @@ namespace DataRunner
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public List<Currency> currencies;
+        public Dictionary<string, Option> btcOptions;
         public MainPage()
         {
             this.InitializeComponent();
         }
-        public void getBooks()
+        public void init()
+        {
+
+        }
+        public void getBookSum()
+        {
+
+        }
+        public void getBook()
         {
 
         }

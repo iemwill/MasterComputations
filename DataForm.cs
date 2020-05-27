@@ -12,7 +12,7 @@ namespace MasterComputations
 {
     public partial class DataForm : Form
     {
-        public List<Data.Currency> currencies;
+        public List<Currency> currencies;
         public Dictionary<string, Option> btcOptions;
 
         public List<Option> activeOptionsBTC;

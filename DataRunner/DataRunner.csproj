@@ -119,6 +119,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Book.cs" />
+    <Compile Include="Classes\ChartData.cs" />
+    <Compile Include="Classes\Currency.cs" />
+    <Compile Include="Classes\Instrument.cs" />
+    <Compile Include="Classes\Option.cs" />
+    <Compile Include="Classes\Trade.cs" />
+    <Compile Include="Data\API.cs" />
+    <Compile Include="Data\Load.cs" />
+    <Compile Include="Data\Parse.cs" />
+    <Compile Include="Data\Save.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
