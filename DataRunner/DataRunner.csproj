@@ -129,6 +129,7 @@
     <Compile Include="Data\Load.cs" />
     <Compile Include="Data\Parse.cs" />
     <Compile Include="Data\Save.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -163,6 +164,17 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="protobuf-net">
+      <Version>2.4.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Org.OpenAPITools">
+      <HintPath>..\packages\deribit-api-clients\csharp\bin\Org.OpenAPITools.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

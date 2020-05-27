@@ -2,8 +2,8 @@
 using ProtoBuf;
 using System.IO;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using MasterComputations.Classes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MasterComputations.Data
 {
@@ -13,7 +13,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                var path = Application.StartupPath + "\\data\\";
+                var path = "~/Documents/data/";
                 Directory.CreateDirectory(path);
                 var path2 = path + "bitcoin.options";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
@@ -29,7 +29,7 @@ namespace MasterComputations.Data
         {
             try
             {
-                var path = Application.StartupPath + "\\data\\";
+                var path = "~Documents//data/";
                 Directory.CreateDirectory(path);
                 var path2 = path + "currencies.deribit";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))

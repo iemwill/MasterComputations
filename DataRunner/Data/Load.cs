@@ -4,7 +4,6 @@ using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 
 namespace MasterComputations.Data
 {
@@ -107,7 +106,7 @@ namespace MasterComputations.Data
         }
         public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> localPublicAPI()
         {
-            var path = Application.StartupPath + "\\data\\bitcoin.options";
+            var path = "~/Documents/data/bitcoin.options";
             Dictionary<string, Option> all = new Dictionary<string, Option>();
             using (var fs = File.OpenRead(path))
                 all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
@@ -123,7 +122,7 @@ namespace MasterComputations.Data
         }
         private static List<Currency> currencies()
         {
-            var path = Application.StartupPath + "\\data\\currencies.deribit";
+            var path = "~Documents/Documents/data/currencies.deribit";
             List<Currency> currencies = new List<Currency>();
             using (var fs = File.OpenRead(path))
                 currencies = Serializer.Deserialize<List<Currency>>(fs);

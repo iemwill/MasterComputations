@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Center" Height="456" Width="1247" IsReadOnly="True" PlaceholderText="Here gonna be the latest data source..."/>
+        <TextBox HorizontalAlignment="Center" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Center" Height="778" Width="873" IsReadOnly="True" PlaceholderText="Here gonna be the latest data source..."/>
 
     </Grid>
 </Page>

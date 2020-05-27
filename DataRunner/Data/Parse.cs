@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Windows.Forms;
 
 namespace MasterComputations.Data
 {
@@ -161,7 +160,6 @@ namespace MasterComputations.Data
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
                 return new List<Book>();
             }
         }
@@ -208,7 +206,6 @@ namespace MasterComputations.Data
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
                 return new Book();
             }
         }
