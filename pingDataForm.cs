@@ -13,7 +13,7 @@ namespace MasterComputations
     {
         public Dictionary<string, Option> btcOptions;
         public static int minute = 60000;
-        public int intervall = 30 * minute;
+        public int intervall = 15 * minute;
         private static System.Timers.Timer aTimer;
         public pingDataForm()
         {
