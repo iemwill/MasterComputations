@@ -42,7 +42,7 @@ namespace MasterComputations
                 add.orderBook.Add(API.Deribit.getBook(x.instrument_name));
                 btcOptions.Add(x.instrument_name, add);
             }
-            Save.options(btcOptions);
+            Save.bookData(btcOptions);
         }
         private void update(object source, ElapsedEventArgs e)
         {
@@ -76,7 +76,7 @@ namespace MasterComputations
                     if (!check)
                         btcOptions[x.name].active = false;
                 }
-                Save.options(btcOptions);
+                Save.bookData(btcOptions);
             }
             catch (Exception ex)
             {
