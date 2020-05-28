@@ -10,6 +10,22 @@ namespace MasterComputations.Data
 {
     public class Load
     {
+        private static List<Currency> currencies()
+        {
+            try
+            {
+                var path = Application.StartupPath + "\\data\\currencies.deribit";
+                List<Currency> currencies = new List<Currency>();
+                using (var fs = File.OpenRead(path))
+                    currencies = Serializer.Deserialize<List<Currency>>(fs);
+                return currencies;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return new List<Currency>();
+            }
+        }
         public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> onlinePublicAPI(bool justActive = false)
         {
             try
@@ -145,19 +161,20 @@ namespace MasterComputations.Data
                     new List<Currency>());
             }
         }
-        private static List<Currency> currencies()
+        public static Dictionary<string, Option> book()
         {
             try
             {
-                var path = Application.StartupPath + "\\data\\currencies.deribit";
-                List<Currency> currencies = new List<Currency>();
+                var path = Application.StartupPath + "\\data\\BOP.data";
+                Dictionary<string, Option> all = new Dictionary<string, Option>();
                 using (var fs = File.OpenRead(path))
-                    currencies = Serializer.Deserialize<List<Currency>>(fs);
-                return currencies;
-            }catch (Exception e)
+                    all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
+                return all;
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return new List<Currency>();
+                return new Dictionary<string, Option>();
             }
         }
     }

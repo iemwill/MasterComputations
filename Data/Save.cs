@@ -9,22 +9,6 @@ namespace MasterComputations.Data
 {
     public class Save
     {
-        public static bool options(Dictionary<string, Option> input)
-        {
-            try
-            {
-                var path = Application.StartupPath + "\\data\\";
-                Directory.CreateDirectory(path);
-                var path2 = path + "bitcoin.options";
-                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-                    Serializer.Serialize(fs, input);
-                return true;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
         public static bool currencies(List<Currency> input)
         {
             try
@@ -41,71 +25,37 @@ namespace MasterComputations.Data
                 throw;
             }
         }
-
-
-        //public static bool activeOptionsBTC(List<Instrument> input)
-        //{
-        //    try
-        //    {
-        //        var path = Application.StartupPath + "\\data\\";
-        //        Directory.CreateDirectory(path);
-        //        var path2 = path + "activeOptionsBTC.will";
-        //        using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-        //            Serializer.Serialize(fs, input);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-        //public static bool inactiveOptionsBTC(List<Instrument> input)
-        //{
-        //    try
-        //    {
-        //        var path = Application.StartupPath + "\\data\\";
-        //        Directory.CreateDirectory(path);
-        //        var path2 = path + "inactiveOptionsBTC.will";
-        //        using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-        //            Serializer.Serialize(fs, input);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-        //public static bool book(Dictionary<string, List<Book>> input)
-        //{
-        //    try
-        //    {
-        //        var path = Application.StartupPath + "\\data\\";
-        //        Directory.CreateDirectory(path);
-        //        var path2 = path + "orderBook.will";
-        //        using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-        //            Serializer.Serialize(fs, input);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-        //public static bool chartData(Dictionary<string, ChartData> input)
-        //{
-        //    try
-        //    {
-        //        var path = Application.StartupPath + "\\data\\";
-        //        Directory.CreateDirectory(path);
-        //        var path2 = path + "chartData.will";
-        //        using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-        //            Serializer.Serialize(fs, input);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        public static bool options(Dictionary<string, Option> input)
+        {
+            try
+            {
+                var path = Application.StartupPath + "\\data\\";
+                Directory.CreateDirectory(path);
+                var path2 = path + "bitcoin.options";
+                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    Serializer.Serialize(fs, input);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static bool bookData(Dictionary<string, Option> input)
+        {
+            try
+            {
+                var path = Application.StartupPath + "\\data\\";
+                Directory.CreateDirectory(path);
+                var path2 = path + "BOP.data";
+                using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                    Serializer.Serialize(fs, input);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

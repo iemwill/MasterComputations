@@ -167,8 +167,7 @@ namespace MasterComputations
             //Plot option
             var checkk = new List<Option>();
             foreach (var x in activeOptionsBTC)
-                if (x.trades.Count == 1000 && checkk.Count == 0)
-                    checkk.Add(x);
+                checkk.Add(x);
             plotView1.Model = Plot.option(checkk);
 
             //fill grid
@@ -187,8 +186,7 @@ namespace MasterComputations
             //plot option
             var checkk = new List<Option>();
             foreach (var x in inactiveOptionsBTC)
-                if (x.trades.Count == 1000 && checkk.Count == 0)
-                    checkk.Add(x);
+                checkk.Add(x);
             plotView1.Model = Plot.option(checkk);
 
             //fill grids
@@ -234,7 +232,7 @@ namespace MasterComputations
         {
             try
             {
-                MessageBox.Show("Since we gonna get trades for over 10.000 options traded from 2017 until today this step will take +- 10 min.");
+                MessageBox.Show("Since we gonna get trades for over 10.000 options traded from 2017 until today this step will take +- 30 min.");
                 var data = Data.Load.onlinePublicAPI();
                 btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
