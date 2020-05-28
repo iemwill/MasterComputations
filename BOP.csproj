@@ -92,14 +92,26 @@
     <Compile Include="Classes\Instrument.cs" />
     <Compile Include="Data\Load.cs" />
     <Compile Include="Data\Parse.cs" />
-    <Compile Include="DataForm.cs">
+    <Compile Include="dataForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataForm.Designer.cs">
-      <DependentUpon>DataForm.cs</DependentUpon>
+    <Compile Include="dataForm.Designer.cs">
+      <DependentUpon>dataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Save.cs" />
     <Compile Include="Classes\Trade.cs" />
+    <Compile Include="tradingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tradingForm.Designer.cs">
+      <DependentUpon>tradingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pingDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pingDataForm.Designer.cs">
+      <DependentUpon>pingDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="initForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,8 +129,11 @@
     <EmbeddedResource Include="connectDeribitForm.resx">
       <DependentUpon>connectDeribitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataForm.resx">
-      <DependentUpon>DataForm.cs</DependentUpon>
+    <EmbeddedResource Include="dataForm.resx">
+      <DependentUpon>dataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pingDataForm.resx">
+      <DependentUpon>pingDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="initForm.resx">
       <DependentUpon>initForm.cs</DependentUpon>
@@ -133,6 +148,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="tradingForm.resx">
+      <DependentUpon>tradingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

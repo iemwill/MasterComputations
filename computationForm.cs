@@ -9,7 +9,6 @@ namespace BOPcomputations
         public computationForm()
         {
             InitializeComponent();
-
         }
     }
 }

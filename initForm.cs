@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BOPcomputations;
+using System;
 using System.Windows.Forms;
 
 namespace MasterComputations
@@ -15,6 +9,38 @@ namespace MasterComputations
         public initForm()
         {
             InitializeComponent();
+        }
+
+        private void pingData_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form pingDataForm = new pingDataForm();
+            pingDataForm.ShowDialog();
+            this.Close();
+        }
+
+        private void dataVs_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form dataForm = new dataForm();
+            dataForm.ShowDialog();
+            this.Close();
+        }
+
+        private void computations_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form computationForm = new computationForm();
+            computationForm.ShowDialog();
+            this.Close();
+        }
+
+        private void apiKEY_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form connectForm = new connectDeribitForm();
+            connectForm.ShowDialog();
+            this.Close();
         }
     }
 }

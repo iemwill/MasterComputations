@@ -10,7 +10,7 @@ using MasterComputations.Visualization;
 
 namespace MasterComputations
 {
-    public partial class DataForm : Form
+    public partial class dataForm : Form
     {
         public List<Currency> currencies;
         public Dictionary<string, Option> btcOptions;
@@ -21,7 +21,7 @@ namespace MasterComputations
         public int options2019TradesCount;
         public List<Option> mostTraded;
         //"BTC-27DEC19-7750-C"
-        public DataForm()
+        public dataForm()
         {
             InitializeComponent();
             btcOptions = new Dictionary<string, Option>(); activeOptionsBTC = new List<Option>(); inactiveOptionsBTC = new List<Option>();
@@ -234,7 +234,7 @@ namespace MasterComputations
         {
             try
             {
-                MessageBox.Show("Since we gonna get trades for over 10 options traded from 2017 until today this step will take +- 10 min.");
+                MessageBox.Show("Since we gonna get trades for over 10.000 options traded from 2017 until today this step will take +- 10 min.");
                 var data = Data.Load.onlinePublicAPI();
                 btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
@@ -246,11 +246,3 @@ namespace MasterComputations
 
     }
 }
-//connection Form to deribit private API
-//var form = new connectDeribitForm();
-//        if (form.ShowDialog() == DialogResult.OK)
-//        {
-//            name = form.name;
-//            passW = form.passW;
-//            form.Close();
-//        }

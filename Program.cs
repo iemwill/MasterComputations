@@ -1,5 +1,6 @@
 ﻿using BOPcomputations;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace MasterComputations
@@ -14,7 +15,7 @@ namespace MasterComputations
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new computationForm());
+            Application.Run(new initForm());
         }
     }
 }
