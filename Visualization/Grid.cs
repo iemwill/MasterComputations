@@ -100,5 +100,33 @@ namespace MasterComputations.Visualization
                 throw;
             }
         }
+        public static List<DataGridViewRow> updates(Dictionary<string, Option> input)
+        {
+            try
+            {
+                var check = new List<DataGridViewRow>();
+                foreach (var x in input.Values)
+                {//add code here for adding rows to dataGridviewFiles
+                    DataGridViewRow tempRow = new DataGridViewRow();
+                    DataGridViewCell cellFileName = new DataGridViewTextBoxCell();
+                    cellFileName.Value = x.name;
+                    tempRow.Cells.Add(cellFileName);
+                    DataGridViewCell dd = new DataGridViewTextBoxCell();
+                    dd.Value = x.active;
+                    tempRow.Cells.Add(dd);
+                    DataGridViewCell dd1 = new DataGridViewTextBoxCell();
+                    dd1.Value = x.orderBook.Count;
+                    tempRow.Cells.Add(dd1);
+                    check.Add(tempRow);
+                }
+                return check;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error in Grid.updates(List<Option>). \n", e.Message);
+                throw;
+            }
+        }
+
     }
 }

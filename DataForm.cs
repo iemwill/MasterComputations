@@ -142,7 +142,7 @@ namespace MasterComputations
                 dataGridView1.Rows.Clear();
                 var check = Grid.options(options2019);
                 foreach (var x in check)
-                    this.dataGridView1.Rows.Add(x);
+                    dataGridView1.Rows.Add(x);
 
                 dataGridView2.ColumnCount = 6;
                 dataGridView2.Columns[0].Name = "direcetion";

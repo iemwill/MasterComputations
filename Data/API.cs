@@ -53,7 +53,7 @@ namespace MasterComputations
                 var res = stuff.result;
                 return Parse.ticker(res);
             }
-            public static List<Book> getBook(string name)
+            public static Book getBook(string name)
             {
                 Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
                 var apiInstance = new PublicApi(Configuration.Default);

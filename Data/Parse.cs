@@ -115,11 +115,10 @@ namespace MasterComputations.Data
                 retval.Add(new Tuple<long, double>(x[0].Value, x[1].Value));
             return retval;
         }
-        public static List<Book> book(dynamic x)
+        public static Book book(dynamic x)
         {
             try
             {
-                var retval = new List<Book>();
                 Book bookToAdd = new Book();
                 bookToAdd.change_id = x.change_id;
                 bookToAdd.estimated_delivery_price = x.estimated_delivery_price;
@@ -156,13 +155,16 @@ namespace MasterComputations.Data
                 bookToAdd.best_ask_price = x.best_ask_price;
                 bookToAdd.best_bid_amount = x.best_bid_amount;
                 bookToAdd.best_bid_price = x.best_bid_price;
-                retval.Add(bookToAdd);
-                return retval;
+                if(x.best_ask_iv!=null)
+                    bookToAdd.best_ask_iv = x.best_ask_iv;
+                if (x.best_bid_iv != null)
+                    bookToAdd.best_bid_iv = x.best_bid_iv;
+                return bookToAdd;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-                return new List<Book>();
+                return new Book();
             }
         }
         public static Book ticker(dynamic x)
@@ -204,6 +206,8 @@ namespace MasterComputations.Data
                 bookToAdd.best_ask_price = x.best_ask_price;
                 bookToAdd.best_bid_amount = x.best_bid_amount;
                 bookToAdd.best_bid_price = x.best_bid_price;
+                bookToAdd.best_ask_iv = x.best_ask_iv;
+                bookToAdd.best_bid_iv = x.best_bid_iv;
                 return bookToAdd;
             }
             catch (Exception err)

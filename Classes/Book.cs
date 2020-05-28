@@ -1,5 +1,4 @@
 ﻿using ProtoBuf;
-using System.Collections.Generic;
 
 namespace MasterComputations.Data
 {
@@ -52,6 +51,10 @@ namespace MasterComputations.Data
         public float best_ask_price { get; set; }
         [ProtoMember(22)]
         public float best_ask_amount { get; set; }
+        [ProtoMember(23)]
+        public float best_ask_iv { get; set; }
+        [ProtoMember(24)]
+        public float best_bid_iv { get; set; }
         public Book()
         {
             min_price = new float(); max_price = new float(); mark_price = new float(); mark_iv = new float(); last_price = new float();
@@ -59,6 +62,7 @@ namespace MasterComputations.Data
             best_bid_price = new float(); best_bid_amount = new float(); best_ask_price = new float(); best_ask_amount = new float();
             settlement_price = new float(); underlying_price = new float(); change_id = new long(); timestamp = new long();
             instrument_name = ""; underlying_index = ""; state = ""; greeks = new Greeks(); ; stats = new Stats();
+            best_ask_iv = new float(); best_bid_iv = new float();
         }
 
     }
