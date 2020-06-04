@@ -28,8 +28,17 @@ namespace MasterComputations
         private void init()
         {
             btcOptions = new Dictionary<string, Option>();
-            //get all active traded options on BTC
-            var activeOptions = API.Deribit.getInstrumentsWA();
+            //get all active traded options on BTC with trycatch
+            List<Instrument> activeOptions;
+            try
+            {
+                activeOptions = API.Deribit.getInstrumentsWA();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error in pingDataForm.init() \n" + e.Message);
+                activeOptions = API.Deribit.getInstrumentsWA();
+            }
             //fill data with raw calldata
             foreach (var x in activeOptions)
             {

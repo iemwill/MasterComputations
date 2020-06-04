@@ -155,7 +155,7 @@ namespace MasterComputations.Data
                 bookToAdd.best_ask_price = x.best_ask_price;
                 bookToAdd.best_bid_amount = x.best_bid_amount;
                 bookToAdd.best_bid_price = x.best_bid_price;
-                if(x.best_ask_iv!=null)
+                if (x.best_ask_iv != null)
                     bookToAdd.best_ask_iv = x.best_ask_iv;
                 if (x.best_bid_iv != null)
                     bookToAdd.best_bid_iv = x.best_bid_iv;
@@ -163,7 +163,7 @@ namespace MasterComputations.Data
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show("Error in Parse.updates \n" + err.Message);
                 return new Book();
             }
         }
@@ -280,32 +280,40 @@ namespace MasterComputations.Data
         }
         public static List<Trade> tradesByInst(dynamic input)
         {
-            var retval = new List<Trade>();
-
-            foreach (var x in input.trades)
+            try
             {
-                var toAdd = new Trade();
-                toAdd.direction = x.direction;
-                toAdd.implied_volatility = x.iv;
-                toAdd.index_price = x.index_price;
-                toAdd.instrument_name = x.instrument_name;
-                try
+                var retval = new List<Trade>();
+
+                foreach (var x in input.trades)
                 {
-                    toAdd.liquidatation = x.liquidatation;
+                    var toAdd = new Trade();
+                    toAdd.direction = x.direction;
+                    toAdd.implied_volatility = x.iv;
+                    toAdd.index_price = x.index_price;
+                    toAdd.instrument_name = x.instrument_name;
+                    try
+                    {
+                        toAdd.liquidatation = x.liquidatation;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                    toAdd.amount = x.amount;
+                    toAdd.price = x.price;
+                    toAdd.tick_direction = x.tick_direction;
+                    toAdd.timestamp = x.timestamp;
+                    toAdd.trade_id = x.trade_id;
+                    toAdd.trade_seq = x.trade_seq;
+                    retval.Add(toAdd);
                 }
-                catch
-                {
-                    continue;
-                }
-                toAdd.amount = x.amount;
-                toAdd.price = x.price;
-                toAdd.tick_direction = x.tick_direction;
-                toAdd.timestamp = x.timestamp;
-                toAdd.trade_id = x.trade_id;
-                toAdd.trade_seq = x.trade_seq;
-                retval.Add(toAdd);
+                return retval;
             }
-            return retval;
+            catch (Exception err)
+            {
+                MessageBox.Show("Error in Parse.tradesByInst \n" + err.Message);
+                return new List<Trade>();
+            }
         }
     }
 }
