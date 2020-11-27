@@ -80,12 +80,6 @@
     <Compile Include="Computations\NeuralNetwork.cs" />
     <Compile Include="Computations\SecondLayer.cs" />
     <Compile Include="Data\API.cs" />
-    <Compile Include="connectDeribitForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="connectDeribitForm.Designer.cs">
-      <DependentUpon>connectDeribitForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Book.cs" />
     <Compile Include="Classes\ChartData.cs" />
     <Compile Include="Classes\Currency.cs" />
@@ -100,12 +94,6 @@
     </Compile>
     <Compile Include="Data\Save.cs" />
     <Compile Include="Classes\Trade.cs" />
-    <Compile Include="tradingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="tradingForm.Designer.cs">
-      <DependentUpon>tradingForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="pingOBForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,9 +114,6 @@
     <EmbeddedResource Include="computationForm.resx">
       <DependentUpon>computationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="connectDeribitForm.resx">
-      <DependentUpon>connectDeribitForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="dataForm.resx">
       <DependentUpon>dataForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,9 +133,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="tradingForm.resx">
-      <DependentUpon>tradingForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
