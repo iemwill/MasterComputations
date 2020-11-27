@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MasterComputations.Classes;
-using MasterComputations.Computations;
 using MasterComputations.Data;
 using MasterComputations.Visualization;
 

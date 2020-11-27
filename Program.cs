@@ -13,7 +13,7 @@ namespace MasterComputations
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new dataForm());
+            Application.Run(new initForm());
         }
     }
 }

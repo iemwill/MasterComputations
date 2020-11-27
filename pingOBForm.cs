@@ -1,5 +1,4 @@
 ﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
 using MasterComputations.Data;
 using MasterComputations.Visualization;
 using System;

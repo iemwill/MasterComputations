@@ -1,5 +1,4 @@
 ﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;

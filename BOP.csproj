@@ -69,16 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Option.cs" />
-    <Compile Include="computationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="computationForm.Designer.cs">
-      <DependentUpon>computationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Computations\FirstLayer.cs" />
-    <Compile Include="Computations\Helper.cs" />
-    <Compile Include="Computations\NeuralNetwork.cs" />
-    <Compile Include="Computations\SecondLayer.cs" />
     <Compile Include="Data\API.cs" />
     <Compile Include="Classes\Book.cs" />
     <Compile Include="Classes\ChartData.cs" />
@@ -106,14 +96,10 @@
     <Compile Include="initForm.Designer.cs">
       <DependentUpon>initForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Visualization\Grid.cs" />
     <Compile Include="Visualization\Plot.cs" />
-    <EmbeddedResource Include="computationForm.resx">
-      <DependentUpon>computationForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="dataForm.resx">
       <DependentUpon>dataForm.cs</DependentUpon>
     </EmbeddedResource>

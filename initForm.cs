@@ -1,5 +1,4 @@
-﻿using BOPcomputations;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace MasterComputations
@@ -11,7 +10,7 @@ namespace MasterComputations
             InitializeComponent();
         }
 
-        private void pingData_Click(object sender, EventArgs e)
+        private void pingOB_Click(object sender, EventArgs e)
         {
             this.Hide();
             Form pingDataForm = new pingOBForm();
@@ -19,33 +18,12 @@ namespace MasterComputations
             this.Close();
         }
 
-        private void dataVs_Click(object sender, EventArgs e)
+        private void dataV_Click(object sender, EventArgs e)
         {
             this.Hide();
             Form dataForm = new dataForm();
             dataForm.ShowDialog();
             this.Close();
-        }
-
-        private void computations_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form computationForm = new computationForm();
-            computationForm.ShowDialog();
-            this.Close();
-        }
-
-        private void apiKEY_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form connectForm = new connectDeribitForm();
-            connectForm.ShowDialog();
-            this.Close();
-        }
-
-        private void updateHistoricalData_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
