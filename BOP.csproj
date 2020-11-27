@@ -106,11 +106,11 @@
     <Compile Include="tradingForm.Designer.cs">
       <DependentUpon>tradingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="pingDataForm.cs">
+    <Compile Include="pingOBForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="pingDataForm.Designer.cs">
-      <DependentUpon>pingDataForm.cs</DependentUpon>
+    <Compile Include="pingOBForm.Designer.cs">
+      <DependentUpon>pingOBForm.cs</DependentUpon>
     </Compile>
     <Compile Include="initForm.cs">
       <SubType>Form</SubType>
@@ -132,8 +132,8 @@
     <EmbeddedResource Include="dataForm.resx">
       <DependentUpon>dataForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="pingDataForm.resx">
-      <DependentUpon>pingDataForm.cs</DependentUpon>
+    <EmbeddedResource Include="pingOBForm.resx">
+      <DependentUpon>pingOBForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="initForm.resx">
       <DependentUpon>initForm.cs</DependentUpon>

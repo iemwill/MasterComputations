@@ -31,11 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(initForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.pingData = new System.Windows.Forms.Button();
+            this.pingBookData = new System.Windows.Forms.Button();
             this.computations = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataVs = new System.Windows.Forms.Button();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.apiKEY = new System.Windows.Forms.Button();
+            this.updateHistoricalData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -48,6 +50,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -76,7 +82,7 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.pingData);
+            this.splitContainer3.Panel1.Controls.Add(this.pingBookData);
             // 
             // splitContainer3.Panel2
             // 
@@ -85,16 +91,16 @@
             this.splitContainer3.SplitterDistance = 109;
             this.splitContainer3.TabIndex = 0;
             // 
-            // pingData
+            // pingBookData
             // 
-            this.pingData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pingData.Location = new System.Drawing.Point(0, 0);
-            this.pingData.Name = "pingData";
-            this.pingData.Size = new System.Drawing.Size(255, 109);
-            this.pingData.TabIndex = 1;
-            this.pingData.Text = "pingData";
-            this.pingData.UseVisualStyleBackColor = true;
-            this.pingData.Click += new System.EventHandler(this.pingData_Click);
+            this.pingBookData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pingBookData.Location = new System.Drawing.Point(0, 0);
+            this.pingBookData.Name = "pingBookData";
+            this.pingBookData.Size = new System.Drawing.Size(255, 109);
+            this.pingBookData.TabIndex = 1;
+            this.pingBookData.Text = "ping Order Book Data";
+            this.pingBookData.UseVisualStyleBackColor = true;
+            this.pingBookData.Click += new System.EventHandler(this.pingData_Click);
             // 
             // computations
             // 
@@ -120,7 +126,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.apiKEY);
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer2.Size = new System.Drawing.Size(251, 221);
             this.splitContainer2.SplitterDistance = 109;
             this.splitContainer2.TabIndex = 0;
@@ -136,16 +142,43 @@
             this.dataVs.UseVisualStyleBackColor = true;
             this.dataVs.Click += new System.EventHandler(this.dataVs_Click);
             // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.apiKEY);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.updateHistoricalData);
+            this.splitContainer4.Size = new System.Drawing.Size(251, 108);
+            this.splitContainer4.SplitterDistance = 120;
+            this.splitContainer4.TabIndex = 4;
+            // 
             // apiKEY
             // 
             this.apiKEY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.apiKEY.Location = new System.Drawing.Point(0, 0);
             this.apiKEY.Name = "apiKEY";
-            this.apiKEY.Size = new System.Drawing.Size(251, 108);
-            this.apiKEY.TabIndex = 3;
-            this.apiKEY.Text = "add API KEY for TRADINGecpp";
+            this.apiKEY.Size = new System.Drawing.Size(120, 108);
+            this.apiKEY.TabIndex = 4;
+            this.apiKEY.Text = "add API KEY for TRADING";
             this.apiKEY.UseVisualStyleBackColor = true;
-            this.apiKEY.Click += new System.EventHandler(this.apiKEY_Click);
+            // 
+            // updateHistoricalData
+            // 
+            this.updateHistoricalData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateHistoricalData.Location = new System.Drawing.Point(0, 0);
+            this.updateHistoricalData.Name = "updateHistoricalData";
+            this.updateHistoricalData.Size = new System.Drawing.Size(127, 108);
+            this.updateHistoricalData.TabIndex = 0;
+            this.updateHistoricalData.Text = "update historical data";
+            this.updateHistoricalData.UseVisualStyleBackColor = true;
+            this.updateHistoricalData.Click += new System.EventHandler(this.updateHistoricalData_Click);
             // 
             // initForm
             // 
@@ -168,6 +201,10 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -176,10 +213,12 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.Button pingData;
+        private System.Windows.Forms.Button pingBookData;
         private System.Windows.Forms.Button computations;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button dataVs;
+        private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Button apiKEY;
+        private System.Windows.Forms.Button updateHistoricalData;
     }
 }

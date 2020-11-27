@@ -10,23 +10,7 @@ namespace MasterComputations.Data
 {
     public class Load
     {
-        private static List<Currency> currencies()
-        {
-            try
-            {
-                var path = Application.StartupPath + "\\data\\currencies.deribit";
-                List<Currency> currencies = new List<Currency>();
-                using (var fs = File.OpenRead(path))
-                    currencies = Serializer.Deserialize<List<Currency>>(fs);
-                return currencies;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return new List<Currency>();
-            }
-        }
-        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> onlinePublicAPI(bool justActive = false)
+        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> onlineTrades(bool justActive = true)
         {
             try
             {
@@ -133,7 +117,23 @@ namespace MasterComputations.Data
                     new List<Currency>());
             }
         }
-        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> localPublicAPI()
+        private static List<Currency> localCurrencies()
+        {
+            try
+            {
+                var path = Application.StartupPath + "\\data\\currencies.deribit";
+                List<Currency> currencies = new List<Currency>();
+                using (var fs = File.OpenRead(path))
+                    currencies = Serializer.Deserialize<List<Currency>>(fs);
+                return currencies;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return new List<Currency>();
+            }
+        }
+        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> localOptionData()
         {
             try
             {
@@ -143,7 +143,7 @@ namespace MasterComputations.Data
                     all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
                 var inactive = new List<Option>();
                 var active = new List<Option>();
-                var curr = currencies();
+                var curr = localCurrencies();
                 foreach (var x in all.Values)
                     if (x.active)
                         active.Add(x);
@@ -161,7 +161,7 @@ namespace MasterComputations.Data
                     new List<Currency>());
             }
         }
-        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> pingDataRaw()
+        public static Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>> localBookData()
         {
             try
             {
@@ -171,7 +171,7 @@ namespace MasterComputations.Data
                     all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
                 var inactive = new List<Option>();
                 var active = new List<Option>();
-                var curr = currencies();
+                var curr = localCurrencies();
                 foreach (var x in all.Values)
                     if (x.active)
                         active.Add(x);
@@ -187,22 +187,6 @@ namespace MasterComputations.Data
                     new List<Option>(),
                     new List<Option>(),
                     new List<Currency>());
-            }
-        }
-        public static Dictionary<string, Option> book()
-        {
-            try
-            {
-                var path = Application.StartupPath + "\\data\\BOP.data";
-                Dictionary<string, Option> all = new Dictionary<string, Option>();
-                using (var fs = File.OpenRead(path))
-                    all = Serializer.Deserialize<Dictionary<string, Option>>(fs);
-                return all;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return new Dictionary<string, Option>();
             }
         }
     }

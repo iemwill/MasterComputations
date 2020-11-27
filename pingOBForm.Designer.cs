@@ -1,6 +1,6 @@
 ﻿namespace MasterComputations
 {
-    partial class pingDataForm
+    partial class pingOBForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pingDataForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pingOBForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.updateGridButton = new System.Windows.Forms.Button();
@@ -80,15 +80,15 @@
             this.updateGridButton.UseVisualStyleBackColor = true;
             this.updateGridButton.Click += new System.EventHandler(this.updateGridButton_Click);
             // 
-            // pingDataForm
+            // pingBookDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 220);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "pingDataForm";
-            this.Text = "pingDataForm";
+            this.Name = "pingBookDataForm";
+            this.Text = "pingBookData";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

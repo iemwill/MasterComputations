@@ -9,13 +9,13 @@ using System.Windows.Forms;
 
 namespace MasterComputations
 {
-    public partial class pingDataForm : Form
+    public partial class pingOBForm : Form
     {
         public Dictionary<string, Option> btcOptions;
         public static int minute = 60000;
-        public int intervall = 15 * minute;
+        public int intervall = 5 * minute;
         private static System.Timers.Timer aTimer;
-        public pingDataForm()
+        public pingOBForm()
         {
             InitializeComponent();
             //get init Data
@@ -85,11 +85,11 @@ namespace MasterComputations
                     if (!check)
                         btcOptions[x.name].active = false;
                 }
-                Save.bookData(btcOptions);
+                 Save.bookData(btcOptions);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error in update from pingDataForm. \n " + ex.Message);
+                MessageBox.Show("Error in update from pingOBForm. \n " + ex.Message);
             }
         }
         private void updateGridButton_Click(object sender, EventArgs e)

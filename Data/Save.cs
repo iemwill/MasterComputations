@@ -47,7 +47,7 @@ namespace MasterComputations.Data
             {
                 var path = Application.StartupPath + "\\data\\";
                 Directory.CreateDirectory(path);
-                var path2 = path + "BOP.data";
+                var path2 = path + "BOP-" + DateTime.Now.ToShortDateString() + ".data";
                 using (var fs = new FileStream(path2, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                     Serializer.Serialize(fs, input);
                 return true;

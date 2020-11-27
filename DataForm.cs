@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using MasterComputations.Classes;
 using MasterComputations.Computations;
@@ -17,19 +15,26 @@ namespace MasterComputations
 
         public List<Option> activeOptionsBTC;
         public List<Option> inactiveOptionsBTC;
-        public List<Option> options2019;
-        public int options2019TradesCount;
+        public List<Option> options2019;//currently changed to 2020
+        public int options2019TradesCount;//samesame
         public List<Option> mostTraded;
         //"BTC-27DEC19-7750-C"
         public dataForm()
         {
             InitializeComponent();
             btcOptions = new Dictionary<string, Option>(); activeOptionsBTC = new List<Option>(); inactiveOptionsBTC = new List<Option>();
-            var data = Data.Load.localPublicAPI();
+            var data = Data.Load.localOptionData();
             btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
+
+            var t = DateTime.UtcNow;
             initData();
+            var s = DateTime.UtcNow - t;
+
+            var t1 = DateTime.UtcNow;
             updateData();
-            showData();
+            var s1 = DateTime.UtcNow - t1;
+
+            showOptions(activeOptionsBTC);
         }
 
         private void initData()
@@ -38,11 +43,11 @@ namespace MasterComputations
             {
                 options2019 = new List<Option>();
                 options2019TradesCount = 0;
-                //fill options2019
+                //fill options2020
                 foreach (var x in inactiveOptionsBTC)
                 {
-                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2019, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
-                        x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2019, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
+                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2020, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
+                        x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2020, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
                     {
                         options2019.Add(x);
                         options2019TradesCount += x.trades.Count;
@@ -93,20 +98,20 @@ namespace MasterComputations
                 options2019 = new List<Option>();
                 options2019TradesCount = 0;
                 mostTraded = new List<Option>();
-                //fill options2019
+                //fill options2020
                 foreach (var x in btcOptions.Values)
                 {
                     if (x.active)
                         activeOptionsBTC.Add(x);
                     else
                         inactiveOptionsBTC.Add(x);
-                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2019, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
-                                 x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2019, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
+                    if (x.raw.creation_timestamp / 1000 >= Helper.dateTimeToUnix(new DateTime(2020, 01, 01, 0, 0, 0, DateTimeKind.Utc)) &&
+                                 x.raw.expiration_timestamp / 1000 <= Helper.dateTimeToUnix(new DateTime(2020, 12, 31, 23, 59, 59, DateTimeKind.Utc)))
                     {
                         options2019.Add(x);
                         options2019TradesCount += x.trades.Count;
                     }
-                    if (x.trades.Count >= 5000)
+                    if (x.trades.Count >= 1000)
                         mostTraded.Add(x);
                 }
             }
@@ -115,13 +120,13 @@ namespace MasterComputations
                 MessageBox.Show(err.Message);
             }
         }
-        private void showData()
+        private void showOptions(List<Option>_options)
         {
             try
             {
                 //plotList
                 var plotta = new List<Option>();
-                foreach (var x in options2019)
+                foreach (var x in _options)
                     if (x.trades.Count >= 5000 && plotta.Count <= 5)
                         plotta.Add(x);
                 plotView1.Model = Plot.option(plotta);
@@ -140,7 +145,7 @@ namespace MasterComputations
                 dataGridView1.Columns[10].Name = "taker comission";
 
                 dataGridView1.Rows.Clear();
-                var check = Grid.options(options2019);
+                var check = Grid.options(_options);
                 foreach (var x in check)
                     dataGridView1.Rows.Add(x);
 
@@ -153,7 +158,7 @@ namespace MasterComputations
                 dataGridView2.Columns[5].Name = "period";
 
                 dataGridView2.Rows.Clear();
-                var check2 = Grid.trades(options2019[0]);
+                var check2 = Grid.trades(_options[0]);
                 foreach (var x in check2)
                     this.dataGridView2.Rows.Add(x);
             }
@@ -232,8 +237,7 @@ namespace MasterComputations
         {
             try
             {
-                MessageBox.Show("Since we gonna get trades for over 10.000 options traded from 2017 until today this step will take +- 30 min.");
-                var data = Data.Load.onlinePublicAPI();
+                var data = Data.Load.onlineTrades(true);
                 btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
             catch (Exception err)
@@ -241,6 +245,5 @@ namespace MasterComputations
                 MessageBox.Show(err.Message);
             }
         }
-
     }
 }

@@ -14,7 +14,7 @@ namespace MasterComputations
         private void pingData_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form pingDataForm = new pingDataForm();
+            Form pingDataForm = new pingOBForm();
             pingDataForm.ShowDialog();
             this.Close();
         }
@@ -41,6 +41,11 @@ namespace MasterComputations
             Form connectForm = new connectDeribitForm();
             connectForm.ShowDialog();
             this.Close();
+        }
+
+        private void updateHistoricalData_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
