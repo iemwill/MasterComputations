@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Option.cs" />
+    <Compile Include="Computations\Helper.cs" />
     <Compile Include="Data\API.cs" />
     <Compile Include="Classes\Book.cs" />
     <Compile Include="Classes\ChartData.cs" />
@@ -84,6 +85,12 @@
     </Compile>
     <Compile Include="Data\Save.cs" />
     <Compile Include="Classes\Trade.cs" />
+    <Compile Include="selectDates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="selectDates.Designer.cs">
+      <DependentUpon>selectDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="pingOBForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +126,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="selectDates.resx">
+      <DependentUpon>selectDates.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -133,8 +143,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Computations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

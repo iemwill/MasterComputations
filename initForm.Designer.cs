@@ -75,6 +75,7 @@
             this.dataV.TabIndex = 0;
             this.dataV.Text = "data Visualization";
             this.dataV.UseVisualStyleBackColor = true;
+            this.dataV.Click += new System.EventHandler(this.dataV_Click);
             // 
             // initForm
             // 

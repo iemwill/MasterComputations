@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MasterComputations.Classes;
+using MasterComputations.Computations;
 using MasterComputations.Data;
 using MasterComputations.Visualization;
 
@@ -236,7 +237,7 @@ namespace MasterComputations
         {
             try
             {
-                var data = Data.Load.onlineTrades(true);
+                var data = Data.Load.onlineTrades();
                 btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
             catch (Exception err)

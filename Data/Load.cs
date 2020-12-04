@@ -1,4 +1,5 @@
 ﻿using MasterComputations.Classes;
+using MasterComputations.Computations;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;
@@ -152,7 +153,7 @@ namespace MasterComputations.Data
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Unfortunately there was no local data, or some other kind of error occured: \n" + e.Message);
                 return new Tuple<Dictionary<string, Option>, List<Option>, List<Option>, List<Currency>>(
                     new Dictionary<string, Option>(),
                     new List<Option>(),
