@@ -1,4 +1,4 @@
 # MasterComputations
 
-This rpo contains computations for my Masterthesis in Mathematics.
+This repository contains "computations" for one possible topic of my Masterthesis in Mathematics.
 
