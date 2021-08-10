@@ -1,9 +1,8 @@
-﻿using MasterComputations.Classes;
-using ProtoBuf;
+﻿using ProtoBuf;
 using System;
 using System.Collections.Generic;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     [ProtoContract]
     public class Instrument

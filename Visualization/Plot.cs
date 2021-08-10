@@ -1,14 +1,13 @@
-﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
+﻿using OptionPricing.Classes;
+using OptionPricing.Computations;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.ServiceModel.Channels;
 using System.Windows.Forms;
 
-namespace MasterComputations.Visualization
+namespace OptionPricing.Visualization
 {
     public class Plot
     {

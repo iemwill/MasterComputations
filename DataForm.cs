@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MasterComputations.Classes;
-using MasterComputations.Computations;
-using MasterComputations.Data;
-using MasterComputations.Visualization;
+using OptionPricing.Classes;
+using OptionPricing.Computations;
+using OptionPricing.Data;
+using OptionPricing.Visualization;
 
-namespace MasterComputations
+namespace OptionPricing
 {
     public partial class dataForm : Form
     {
@@ -23,7 +23,7 @@ namespace MasterComputations
         {
             InitializeComponent();
             btcOptions = new Dictionary<string, Option>(); activeOptionsBTC = new List<Option>(); inactiveOptionsBTC = new List<Option>();
-            var data = Data.Load.localOptionData();
+            var data = OptionPricing.Data.Load.localOptionData();
             btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
 
             var t = DateTime.UtcNow;
@@ -237,7 +237,7 @@ namespace MasterComputations
         {
             try
             {
-                var data = Data.Load.onlineTrades();
+                var data = OptionPricing.Data.Load.onlineTrades();
                 btcOptions = data.Item1; activeOptionsBTC = data.Item2; inactiveOptionsBTC = data.Item3; currencies = data.Item4;
             }
             catch (Exception err)

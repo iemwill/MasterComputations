@@ -3,9 +3,9 @@ using ProtoBuf;
 using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using MasterComputations.Classes;
+using OptionPricing.Classes;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     public class Save
     {

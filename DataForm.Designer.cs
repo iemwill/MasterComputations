@@ -1,4 +1,4 @@
-﻿namespace MasterComputations
+﻿namespace OptionPricing
 {
     partial class dataForm
     {
@@ -268,7 +268,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "dataForm";
-            this.Text = "Master Computations on Bitcoin Option Pricing";
+            this.Text = "Bitcoin Option Trading Data";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

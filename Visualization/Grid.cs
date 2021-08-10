@@ -1,13 +1,10 @@
-﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
+﻿using OptionPricing.Classes;
+using OptionPricing.Computations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MasterComputations.Visualization
+namespace OptionPricing.Visualization
 {
     public class Grid
     {

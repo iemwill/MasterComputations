@@ -1,10 +1,10 @@
-﻿using MasterComputations.Data;
+﻿using OptionPricing.Data;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;
 
 
-namespace MasterComputations.Classes
+namespace OptionPricing.Classes
 {
     [ProtoContract]
     [ProtoInclude(500, typeof(Instrument))]

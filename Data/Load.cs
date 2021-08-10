@@ -1,12 +1,12 @@
-﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
+﻿using OptionPricing.Classes;
+using OptionPricing.Computations;
 using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     public class Load
     {

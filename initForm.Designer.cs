@@ -1,4 +1,4 @@
-﻿namespace MasterComputations
+﻿namespace OptionPricing
 {
     partial class initForm
     {

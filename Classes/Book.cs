@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     [ProtoContract]
     [ProtoInclude(500, typeof(Stats))]

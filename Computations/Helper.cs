@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MasterComputations.Computations
+namespace OptionPricing.Computations
 {
     public class Helper
     {

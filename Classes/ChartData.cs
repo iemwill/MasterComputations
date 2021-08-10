@@ -1,7 +1,7 @@
 ﻿using ProtoBuf;
 using System.Collections.Generic;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     [ProtoContract]
     public class ChartData

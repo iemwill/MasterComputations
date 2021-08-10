@@ -1,13 +1,14 @@
-﻿using MasterComputations.Classes;
-using MasterComputations.Computations;
-using MasterComputations.Data;
-using MasterComputations.Visualization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Timers;
 using System.Windows.Forms;
+using OptionPricing;
+using OptionPricing.Classes;
+using OptionPricing.Computations;
+using OptionPricing.Data;
+using OptionPricing.Visualization;
 
-namespace MasterComputations
+namespace OptionPricing
 {
     public partial class pingOBForm : Form
     {

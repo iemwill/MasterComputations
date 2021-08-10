@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
-namespace MasterComputations.Data
+namespace OptionPricing.Data
 {
     public class Parse
     {

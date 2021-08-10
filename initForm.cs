@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace MasterComputations
+namespace OptionPricing
 {
     public partial class initForm : Form
     {
@@ -21,8 +21,8 @@ namespace MasterComputations
         private void dataV_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form dataForm = new dataForm();
-            dataForm.ShowDialog();
+            Form viewDataForm = new dataForm();
+            viewDataForm.ShowDialog();
             this.Close();
         }
     }

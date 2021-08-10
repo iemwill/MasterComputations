@@ -1,4 +1,4 @@
-﻿using MasterComputations.Data;
+﻿using OptionPricing.Data;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace MasterComputations
+namespace OptionPricing
 {
     public class API
     {
@@ -16,8 +16,9 @@ namespace MasterComputations
         {
             public static List<Currency> getCurrencies()
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                Configuration input = new Configuration();
+                input.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new Org.OpenAPITools.Api.PublicApi(input);
                 Object result = apiInstance.PublicGetCurrenciesGet();
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
@@ -25,8 +26,9 @@ namespace MasterComputations
             }
             public static Book getBook(string name)
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                Configuration input = new Configuration();
+                input.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new Org.OpenAPITools.Api.PublicApi(input);
                 Object result = apiInstance.PublicGetOrderBookGet(name);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
@@ -86,8 +88,9 @@ namespace MasterComputations
             }
             public static List<Instrument> getInstruments(string symbol = "BTC", string kind = "option")
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                Configuration input = new Configuration();
+                input.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new Org.OpenAPITools.Api.PublicApi(input);
                 Object result = apiInstance.PublicGetInstrumentsGet(symbol);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
@@ -112,8 +115,9 @@ namespace MasterComputations
 
             public static List<Tuple<long, double>> getHistVol(string symbol = "BTC")
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                Configuration input = new Configuration();
+                input.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new Org.OpenAPITools.Api.PublicApi(input);
                 Object result = apiInstance.PublicGetHistoricalVolatilityGet(symbol);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;
@@ -121,8 +125,9 @@ namespace MasterComputations
             }
             public static Book getTicker(string name)
             {
-                Configuration.Default.BasePath = "https://www.deribit.com/api/v2";
-                var apiInstance = new PublicApi(Configuration.Default);
+                Configuration input = new Configuration();
+                input.BasePath = "https://www.deribit.com/api/v2";
+                var apiInstance = new Org.OpenAPITools.Api.PublicApi(input);
                 Object result = apiInstance.PublicTickerGet(name);
                 dynamic stuff = JsonConvert.DeserializeObject(result.ToString());
                 var res = stuff.result;

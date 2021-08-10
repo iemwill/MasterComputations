@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace MasterComputations
+namespace OptionPricing
 {
     static class Program
     {
